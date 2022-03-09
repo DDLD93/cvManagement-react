@@ -13,6 +13,10 @@ function Education() {
   const [inst, setinst] = React.useState("")
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
+  const [focusStart, setFocusStart] = useState(false);
+  const [hasValueStart, setHasValueStart] = useState(false);
+  const [focusEnd, setFocusEnd] = useState(false);
+  const [hasValueEnd, setHasValueEnd] = useState(false);
   
 const color = lists.length < 1?"":"lightBlue"
 var key = uuid()
@@ -47,7 +51,7 @@ var key = uuid()
     setdisabled(false) 
    }
  
- }, [value,inst,qualf])
+ }, [hasValueStart,hasValueEnd,qualf,inst,value])
  
   
   return (
@@ -74,10 +78,29 @@ var key = uuid()
         <TextField onChange={(e)=> setinst(e.target.value)} id="Institution" label="Institution" variant="outlined" />
         <TextField value={qualf} onChange={(e)=> setqualf(e.target.value)} id="Qualification" label="Qualification" variant="outlined" />
         <TextField
-          onChange={(e)=>setValue(e.target.value)}
-          type="date"
-          id="Qualification"
-          defaultValue="date"
+         onFocus={() => setFocusStart(true)}
+         onBlur={() => setFocusStart(false)}
+         
+         onChange={(e) => {
+          if (e.target.value) setHasValueStart(e.target.value);
+          else setHasValueStart(false);
+        }}
+        label="Date"
+        type={hasValueStart || focusStart ? "date" : "text"}
+          label="Date Started"
+          variant="outlined"
+        />
+        <TextField
+         onFocus={() => setFocusEnd(true)}
+         onBlur={() => setFocusEnd(false)}
+         
+         onChange={(e) => {
+          if (e.target.value) setHasValueEnd(e.target.value);
+          else setHasValueEnd(false);
+        }}
+        label="Date"
+        type={hasValueEnd || focusEnd ? "date" : "text"}
+          label="Date Completed"
           variant="outlined"
         />
         <Button disabled={disabled} onClick={add} variant="contained">Add</Button>

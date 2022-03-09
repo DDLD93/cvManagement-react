@@ -47,7 +47,7 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="dark"
-                icon="profile"
+                icon="person"
                 title="User Accounts"
                 count={2}
                 percentage={{
@@ -91,12 +91,12 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
+                icon="pending"
+                title="Modification"
+                count="1"
                 percentage={{
                   color: "success",
-                  amount: "",
+                  amount: "100",
                   label: "Just updated",
                 }}
               />

@@ -15,6 +15,11 @@ function WorkHistory() {
   const [title, settitle] = React.useState("")
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
+  const [focusStart, setFocusStart] = useState(false);
+  const [hasValueStart, setHasValueStart] = useState(false);
+  const [focusEnd, setFocusEnd] = useState(false);
+  const [hasValueEnd, setHasValueEnd] = useState(false);
+ 
   
   
 const color = lists.length < 1?"":"lightBlue"
@@ -53,7 +58,7 @@ var key = uuid()
     setdisabled(false) 
    }
  
- }, [date,dateTwo,organisation,title])
+ }, [hasValueStart,hasValueEnd,organisation,title])
  
   
   return (
@@ -80,15 +85,29 @@ var key = uuid()
         <TextField onChange={(e)=> setorganisation(e.target.value)} id="organisation" label="Organisation" variant="outlined" />
         <TextField onChange={(e)=> settitle(e.target.value)} id="Title" label="Job Title" variant="outlined" />
         <TextField
-          onChange={(e)=>setdate(e.target.value)}
-          type="date"
-          label="Started"
+         onFocus={() => setFocusStart(true)}
+         onBlur={() => setFocusStart(false)}
+         
+         onChange={(e) => {
+          if (e.target.value) setHasValueStart(e.target.value);
+          else setHasValueStart(false);
+        }}
+        label="Date"
+        type={hasValueStart || focusStart ? "date" : "text"}
+          label="Date Started"
           variant="outlined"
         />
         <TextField
-          onChange={(e)=>setdateTwo(e.target.value)}
-          type="date"
-          label="Ended"
+         onFocus={() => setFocusEnd(true)}
+         onBlur={() => setFocusEnd(false)}
+         
+         onChange={(e) => {
+          if (e.target.value) setHasValueEnd(e.target.value);
+          else setHasValueEnd(false);
+        }}
+        label="Date"
+        type={hasValueEnd || focusEnd ? "date" : "text"}
+          label="Date Completed"
           variant="outlined"
         />
         <Button disabled={disabled} onClick={add} variant="contained">Add</Button>

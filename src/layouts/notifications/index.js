@@ -113,18 +113,18 @@ function Notifications() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox mt={6} mb={3}>
+      <MDBox mt={0} mb={0}>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2}>
-                <MDTypography variant="h5">Alerts</MDTypography>
+                <MDTypography variant="h5">Site Wide Activity Logs</MDTypography>
               </MDBox>
               <MDBox pt={2} px={2}>
-                <MDAlert color="primary" dismissible>
+                <MDAlert color="primary">
                   {alertContent("primary")}
                 </MDAlert>
-                <MDAlert color="secondary" dismissible>
+                <MDAlert color="secondary" >
                   {alertContent("secondary")}
                 </MDAlert>
                 <MDAlert color="success" dismissible>
@@ -149,7 +149,7 @@ function Notifications() {
             </Card>
           </Grid>
 
-          <Grid item xs={12} lg={8}>
+          {/* <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2} lineHeight={0}>
                 <MDTypography variant="h5">Notifications</MDTypography>
@@ -186,8 +186,8 @@ function Notifications() {
                 </Grid>
               </MDBox>
             </Card>
-          </Grid>
-        </Grid>
+  </Grid>*/}
+        </Grid> 
       </MDBox>
       <Footer />
     </DashboardLayout>
