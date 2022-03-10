@@ -13,7 +13,7 @@ function TextArea(prop) {
         multiline
         maxRows={prop.maxRow}
         value={prop.value}
-        onChange={prop.handleChange}
+        onChange={prop.change}
       />
     </>
   );

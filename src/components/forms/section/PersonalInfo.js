@@ -1,4 +1,4 @@
-import React from "react";
+import {React,useState} from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -14,7 +14,17 @@ import TextArea from "./component/TextArea";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 function PersonalInfo() {
-  const gender = [
+  const [firstName, setfirstName] = useState("")
+  const [lastName, setlastName] = useState("")
+  const [surName, setsurName] = useState("")
+  const [email, setemail] = useState("")
+  const [phone, setphone] = useState("")
+  const [gender, setgender] = useState("")
+  const [address, setaddress] = useState("")
+  const [personalStatement, setpersonalStatement] = useState("")
+
+
+  const genderOption = [
     {
       value: 'male',
       label: 'Male',
@@ -25,10 +35,32 @@ function PersonalInfo() {
     }
   ]
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  return (
+  fetch("http://localhost:1500",{
+    headers :{
+      "ContentType":"Apllication/json"
+    },
+    method:"POST",
+  }).then(res => {
+    console.log(res.json())
+  }).catch(err =>{
+    console.log(err)
+  })
+  const chages= (e)=>{
+    console.log(e)
+  }
+
+  const handleChange = () => {
+    console.log(
+      firstName,
+      lastName,
+      surName,
+      email,
+      phone,
+      gender,
+      address,
+      personalStatement )
+    };
+    return (
     <Container fixed>
       <Box
         component="form"
@@ -41,20 +73,20 @@ function PersonalInfo() {
         <Typography color="blue" variant="caption" sx={{ display: "block" }}>
           Bio data
         </Typography>
-        <TextField id="firstName" label="First Name" variant="outlined" />
-        <TextField id="surName" label="Surname" variant="outlined" />
-        <TextField id="lastName" label="Last Name" variant="outlined" />
+        <TextField onChange={(e) => setfirstName(e.target.value)} id="firstName" label="First Name" variant="outlined" />
+        <TextField onChange={(e) => setsurName(e.target.value)} id="surName" label="Surname" variant="outlined" />
+        <TextField onChange={(e) => setlastName(e.target.value)} id="lastName" label="Last Name" variant="outlined" />
         <Box sx={{width:100 }}>
         <TextField
           id="outlined-select-currency"
           variant="outlined"
           select
           label="Gender"
-          value={gender}
-          onChange={handleChange}
-          helperText="Select your gender"
+          value={genderOption}
+          onChange={(e) => setgender(e.target.value)}         
+           helperText="Select your gender"
         >
-          {gender.map((option) => (
+          {genderOption.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -73,9 +105,10 @@ function PersonalInfo() {
         <Typography color="blue" variant="caption" sx={{ display: "block", mt: 50 }}>
           Contact information
         </Typography>
-        <TextField type='email' id="Email" label="Email Address" variant="outlined" />
-        <TextField type='number' id="Phone" label="Phone Number" variant="outlined" />
+        <TextField onChange={(e) => setemail(e.target.value)} type='email' id="Email" label="Email Address" variant="outlined" />
+        <TextField onChange={(e) => setphone(e.target.value)} type='number' id="Phone" label="Phone Number" variant="outlined" />
         <TextArea
+        change={(e) => setaddress(e.target.value)}
         label={"Address"}
         />
       </Box>
@@ -92,6 +125,7 @@ function PersonalInfo() {
         </Typography>
         <TextArea
         label={"Personal Statement"}
+        change={(e) => setpersonalStatement(e.target.value)}
         sx={{height:30}} />
         <Button
         sx={{maxWidth:147,color:"blue"}}
@@ -106,6 +140,10 @@ function PersonalInfo() {
   />
 </Button>
       </Box>
+      <Button
+      sx={{mt:30}}
+      onClick={handleChange}
+      >test</Button>
     </Container>
   );
 }

@@ -59,7 +59,7 @@ var key = uuid()
   return (
     <Container>
       <Grid sx={{ p:1.2, display: "flex", gap: 2, maxWidth:650, flexWrap: "wrap", alignItems:"center", background:color }}>
-        {lists.map((e)=>{
+         {lists.map((e)=>{
           return(
             <RenderList
             id={e.id}

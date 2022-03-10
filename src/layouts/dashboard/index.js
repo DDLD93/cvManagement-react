@@ -72,13 +72,13 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-          {/* <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
+                icon="power"
+                title="Users Online"
+                count="10"
                 percentage={{
                   color: "success",
                   amount: "+1%",
@@ -86,7 +86,7 @@ function Dashboard() {
                 }}
               />
             </MDBox>
-          </Grid> */}
+          </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
