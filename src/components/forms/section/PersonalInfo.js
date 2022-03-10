@@ -10,9 +10,20 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextArea from "./component/TextArea";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 function PersonalInfo() {
-  const [age, setAge] = React.useState("");
+  const gender = [
+    {
+      value: 'male',
+      label: 'Male',
+    },
+    {
+      value: 'female',
+      label: 'Female',
+    }
+  ]
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -31,19 +42,24 @@ function PersonalInfo() {
           Bio data
         </Typography>
         <TextField id="firstName" label="First Name" variant="outlined" />
-        <TextField id="surName" label="SurName" variant="outlined" />
+        <TextField id="surName" label="Surname" variant="outlined" />
         <TextField id="lastName" label="Last Name" variant="outlined" />
         <Box sx={{width:100 }}>
-        <InputLabel>Gender</InputLabel>
-        <Select
-          value={"age"}
+        <TextField
+          id="outlined-select-currency"
+          variant="outlined"
+          select
+          label="Gender"
+          value={gender}
           onChange={handleChange}
-          sx={{width:100,height:35 }}
+          helperText="Select your gender"
         >
-          <MenuItem value={10}>Male</MenuItem>
-          <MenuItem value={20}>Female</MenuItem>
-          
-        </Select>
+          {gender.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
     </Box>
       </Box>
       <Box
@@ -54,12 +70,14 @@ function PersonalInfo() {
         noValidate
         autoComplete="off"
       >
-        <Typography color="blue" variant="caption" sx={{ display: "block", mt: 20 }}>
+        <Typography color="blue" variant="caption" sx={{ display: "block", mt: 50 }}>
           Contact information
         </Typography>
         <TextField type='email' id="Email" label="Email Address" variant="outlined" />
         <TextField type='number' id="Phone" label="Phone Number" variant="outlined" />
-        <TextField label="Address" id="address" size="Normal" />
+        <TextArea
+        label={"Address"}
+        />
       </Box>
       <Box
         component="form"
@@ -72,11 +90,13 @@ function PersonalInfo() {
         <Typography color="blue" variant="caption" sx={{ display: "block", mt: 20 }}>
           Personal Statement
         </Typography>
-        <TextField sx={{height:30}} label="Personal Statement" id="statement"/>
+        <TextArea
+        label={"Personal Statement"}
+        sx={{height:30}} />
         <Button
-        sx={{color:"blue",
-      maxWidth:150}}
-  variant="outlined"
+        sx={{maxWidth:147,color:"blue"}}
+        color="secondary"
+      endIcon={<CloudUploadIcon/>}  variant="outlined"
   component="label"
 >
   Upload File

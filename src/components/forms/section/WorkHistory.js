@@ -4,13 +4,13 @@ import React, { useEffect,useState } from "react";
 import uuid from 'react-uuid'
 import RenderListtwo from "./component/ListTwo";
 import Typography from "@mui/material/Typography";
+import AddIcon from '@mui/icons-material/Add';
+
 import "./section.css";
 
 
 
 function WorkHistory() {
-  const [date, setdate] = React.useState("");
-  const [dateTwo, setdateTwo] = React.useState("");
   const [organisation, setorganisation] = React.useState("")
   const [title, settitle] = React.useState("")
   const [lists, setlists] = React.useState([])
@@ -29,16 +29,14 @@ var key = uuid()
         id:key,
         organisation,
         title,
-        date,
-        dateTwo,
+        date:hasValueStart,
+        dateTwo:hasValueEnd,
        }
         
       setlists(prev =>[...prev,list])
       
       settitle("")
       setorganisation("")
-      setdate("")
-      setdateTwo("")
      
      }  
   const deleteEntry = (e)=>{
@@ -51,7 +49,7 @@ var key = uuid()
 
 
  useEffect(() => {
-   if (date==""||organisation==""||title==""||dateTwo=="") {
+   if (organisation==""||title==""||hasValueStart==""||hasValueEnd=="") {
      
        setdisabled(true)
    }else{
@@ -110,7 +108,7 @@ var key = uuid()
           label="Date Completed"
           variant="outlined"
         />
-        <Button disabled={disabled} onClick={add} variant="contained">Add</Button>
+        <Button disabled={disabled} onClick={add} variant="contained"><AddIcon/></Button>
       </Grid>
     </Container>
   );

@@ -11,10 +11,10 @@ import WorkHistory from '../section/WorkHistory';
 import Membership from '../section/Membership';
 import Skills from '../section/Skills';
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from '@mui/icons-material/Send';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Info from '../section/AdditionalInfo';
 
-const steps = ['Personal Info','Education', 'Work History','Professioal Membership','Skills','Additional Information','Referees'];
+const steps = ['Personal Info','Education', 'Work History','Professioal Membership','Skills','Referees','Additional Information'];
 
 export default function StepperHorizotal() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -132,7 +132,7 @@ export default function StepperHorizotal() {
                   <LoadingButton
                   variant='contained'
                   loading={false}
-                  endIcon={<SendIcon />}
+                  endIcon={<NavigateNextIcon />}
                   loadingPosition="end"
                    onClick={handleComplete}>
                     {completedSteps() === totalSteps() - 1

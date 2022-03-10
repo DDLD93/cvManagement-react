@@ -4,6 +4,8 @@ import React, { useEffect,useState } from "react";
 import uuid from 'react-uuid'
 import RenderList from "./component/Lists"
 import Typography from "@mui/material/Typography";
+import AddIcon from '@mui/icons-material/Add';
+
 import RenderListtwo from "./component/ListTwo";
 import "./section.css";
 
@@ -15,6 +17,8 @@ function Membership() {
   const [title, setTitle] = React.useState("")
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
+  const [focusStart, setFocusStart] = useState(false);
+  const [hasValueStart, setHasValueStart] = useState(false);
   
 const color = lists.length < 1?"":"lightBlue"
 var key = uuid()
@@ -23,7 +27,8 @@ var key = uuid()
         id:key,
         organisation,
         title,
-        date }
+        date:hasValueStart
+       }
         
       setlists(prev =>[...prev,list])
       setOrganisation("")
@@ -41,14 +46,14 @@ var key = uuid()
 
 
  useEffect(() => {
-   if (date==""||organisation==""||title=="") {
+   if (hasValueStart==""||organisation==""||title=="") {
      
        setdisabled(true)
    }else{
     setdisabled(false) 
    }
  
- }, [organisation,title,date])
+ }, [organisation,title,hasValueStart])
  
   
   return (
@@ -56,10 +61,10 @@ var key = uuid()
       <Grid sx={{ p:1.2, display: "flex", gap: 2, maxWidth:650, flexWrap: "wrap", alignItems:"center", background:color }}>
         {lists.map((e)=>{
           return(
-            <RenderListtwo
+            <RenderList
             id={e.id}
             delete={deleteEntry}
-            organisation={e.organisation}
+            orgnisation={e.organisation}
             title={e.title}
             date={e.date}
 
@@ -74,13 +79,19 @@ var key = uuid()
         <TextField onChange={(e)=> setOrganisation(e.target.value)} id="Institution" label="Organisation" variant="outlined" />
         <TextField onChange={(e)=> setTitle(e.target.value)} id="Qualification" label="Title" variant="outlined" />
         <TextField
-          onChange={(e)=>setDate(e.target.value)}
-          type="date"
-          id="Qualification"
-          defaultValue="date"
+         onFocus={() => setFocusStart(true)}
+         onBlur={() => setFocusStart(false)}
+         
+         onChange={(e) => {
+          if (e.target.value) setHasValueStart(e.target.value);
+          else setHasValueStart(false);
+        }}
+        label="Date"
+        type={hasValueStart || focusStart ? "date" : "text"}
+          label="Date Started"
           variant="outlined"
         />
-        <Button disabled={disabled} onClick={add} variant="contained">Add</Button>
+        <Button disabled={disabled} onClick={add} variant="contained"><AddIcon/></Button>
       </Grid>
     </Container>
   );

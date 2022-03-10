@@ -1,8 +1,6 @@
-.card span {
-    border: solid 1px #4d71a0;
-    padding: 0 25px;
+.MuiOutlinedInput-input{
+    height: 50px
 }
-.card div{ 
-    padding: 0;
-    margin: 0;
+#mui-1{
+    height: 80px;
 }

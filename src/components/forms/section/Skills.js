@@ -4,6 +4,8 @@ import React, { useEffect,useState } from "react";
 import uuid from 'react-uuid'
 import RenderListtwo from "./component/ListTwo";
 import SkillList from "./component/skillList";
+import AddIcon from '@mui/icons-material/Add';
+
 import "./section.css";
 
 
@@ -66,7 +68,7 @@ skills, time-management, communication skills and project management skills
         </Typography>
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
         <TextField onChange={(e)=> setskill(e.target.value)} id="organisation" label="Skill" variant="outlined" />
-        <Button disabled={disabled} onClick={add} variant="contained">Add</Button>
+        <Button disabled={disabled} onClick={add} variant="contained"><AddIcon/></Button>
       </Grid>
     </Container>
   );

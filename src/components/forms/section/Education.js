@@ -3,12 +3,15 @@ import { Button, Container, Grid, Icon, TextField, Typography } from "@mui/mater
 import React, { useEffect,useState } from "react";
 import uuid from 'react-uuid'
 import RenderList from "./component/Lists"
+import RenderListThree from "./component/ListThree";
+import AddIcon from '@mui/icons-material/Add';
 import "./section.css";
+import AddButton from "./component/AddButton";
 
 
 
 function Education() {
-  const [value, setValue] = React.useState("");
+  
   const [qualf, setqualf] = React.useState("")
   const [inst, setinst] = React.useState("")
   const [lists, setlists] = React.useState([])
@@ -25,13 +28,14 @@ var key = uuid()
         id:key,
         institute:inst,
         qualification:qualf,
-        date: value }
+        date: hasValueStart,
+        dateTwo: hasValueEnd
+      }
         
       setlists(prev =>[...prev,list])
       setcount(prevCount => prevCount++)
       setinst("")
       setqualf("")
-      setValue("")
      
      }  
   const deleteEntry = (e)=>{
@@ -44,14 +48,14 @@ var key = uuid()
 
 
  useEffect(() => {
-   if (value==""||inst==""||qualf=="") {
+   if (qualf==""||inst==""||hasValueStart==""||hasValueEnd=="") {
      
        setdisabled(true)
    }else{
     setdisabled(false) 
    }
  
- }, [hasValueStart,hasValueEnd,qualf,inst,value])
+ }, [hasValueStart,hasValueEnd,qualf,inst])
  
   
   return (
@@ -59,12 +63,13 @@ var key = uuid()
       <Grid sx={{ p:1.2, display: "flex", gap: 2, maxWidth:650, flexWrap: "wrap", alignItems:"center", background:color }}>
         {lists.map((e)=>{
           return(
-            <RenderList
+            <RenderListThree
             id={e.id}
             delete={deleteEntry}
-            institute={e.institute}
+            institution={e.institute}
             qualification={e.qualification}
             date={e.date}
+            dateTwo={e.dateTwo}
 
             />
           )
@@ -103,7 +108,10 @@ var key = uuid()
           label="Date Completed"
           variant="outlined"
         />
-        <Button disabled={disabled} onClick={add} variant="contained">Add</Button>
+        {/* <AddButton
+        disabled={disabled} onClick={add}
+        /> */}
+        <Button disabled={disabled} onClick={add} variant="contained"><AddIcon/></Button>
       </Grid>
     </Container>
   );
