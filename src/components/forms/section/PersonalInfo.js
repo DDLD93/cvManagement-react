@@ -23,7 +23,7 @@ function PersonalInfo() {
   const [gender, setgender] = useState("")
   const [address, setaddress] = useState("")
   const [personalStatement, setpersonalStatement] = useState("")
-  const { buttonState } = useContext(StateContext);
+  const { buttonState,setFormPost } = useContext(StateContext);
 
 
 
@@ -38,20 +38,33 @@ function PersonalInfo() {
     }
   ]
 
-  fetch("http://localhost:1500",{
-    headers :{
-      "ContentType":"Apllication/json"
-    },
-    method:"POST",
-  }).then(res => {
-    console.log(res.json())
-  }).catch(err =>{
-    console.log(err)
-  })
+  
  useEffect(() => {
-  firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||address==""||personalStatement==""?buttonState(true):buttonState(false)
-  console.log(firstName,lastName,surName,email,phone,gender,address,personalStatement)
- }, [firstName,lastName,surName,email,phone,gender,address,personalStatement])
+
+
+if (firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||address==""||personalStatement=="") {
+  
+  buttonState(false)
+  setFormPost(undefined)
+} else { 
+  let formData = new FormData();
+  formData.append('firstName', firstName);
+  formData.append('lastName', lastName);
+  formData.append('surName', surName);
+  formData.append('email', email);
+  formData.append('phone', phone);
+  formData.append('gender', gender);
+  formData.append('address', address);
+  formData.append('personalStatement', personalStatement);
+  buttonState(true)
+  setFormPost(formData)
+}
+
+
+
+
+
+}, [firstName,lastName,surName,email,phone,gender,address,personalStatement])
  
 
   
@@ -128,7 +141,7 @@ function PersonalInfo() {
       endIcon={<CloudUploadIcon/>}  variant="outlined"
   component="label"
 >
-  Upload File
+  Upload CV
   <input
     type="file"
     hidden

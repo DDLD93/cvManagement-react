@@ -1,6 +1,6 @@
 import { Button, Container, Grid, Icon, TextField } from "@mui/material";
 // date-fns
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import { StateContext } from "../../../context/state";
 import uuid from 'react-uuid'
 import RenderList from "./component/Lists"
@@ -44,12 +44,18 @@ var key = uuid()
   
    
   }
+useMemo(() => {
 
+  if (lists.length>0) {
+   
+    buttonState(true)
+    setFormPost(formData)   
+   }
+}, [lists])
 
  useEffect(() => {
    if (hasValueStart==""||organisation==""||title=="") {
-     
-       setdisabled(true)
+     setdisabled(true)
    }else{
     setdisabled(false) 
    }
