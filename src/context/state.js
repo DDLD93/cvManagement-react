@@ -17,7 +17,6 @@ export default function StateContextProvider ({ children }) {
 
     async function postData(url = '') {
       setLoading(true)
-      try {
         const response = await fetch(`http://localhost:4000/forms/${url}`, {
           method: 'POST',
           headers: {
@@ -26,17 +25,7 @@ export default function StateContextProvider ({ children }) {
           body: formPostData
         });
         setLoading(false)
-        
-
-        return response.json(); 
-        
-      } catch (error) {
-        console.log(formPostData)
-        setLoading(false)
-
-        return error
-      }
-      
+        return response.json();      
     }
   
 

@@ -5,6 +5,8 @@ import SkillList from "./component/skillList";
 import "./section.css";
 import React, { useEffect, useState, useContext } from "react";
 import { StateContext } from "../../../context/state";
+import TextArea from "./component/TextArea";
+import { width } from "@mui/system";
 
 
 
@@ -67,7 +69,14 @@ lists.length > 0 ? readyState() : buttonState(true);
         })}
       </Grid>
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
-        <TextField sx={{idth:900}} onChange={(e)=> setinfo(e.target.value)} id="organisation" label="Additional Information" variant="outlined" />
+        {/* <TextField sx={{idth:900}} onChange={(e)=> setinfo(e.target.value)} id="organisation" label="Additional Information" variant="outlined" /> */}
+        <TextArea
+        label={"Additional Information"}
+        change={(e)=> setinfo(e.target.value)}
+        maxRows={5}
+        style={{width:1000}}
+
+        />
       </Grid>
     </Container>
   );
