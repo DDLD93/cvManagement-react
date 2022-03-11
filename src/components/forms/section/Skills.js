@@ -14,7 +14,7 @@ function Skills() {
   const [skill, setskill] = React.useState("");
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
-  const { buttonState } = useContext(StateContext);
+  const { buttonState,setFormPost } = useContext(StateContext);
 
   
   

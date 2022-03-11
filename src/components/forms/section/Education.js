@@ -19,7 +19,7 @@ function Education() {
   const [focusEnd, setFocusEnd] = useState(false);
   const [hasValueEnd, setHasValueEnd] = useState(false);
 
-  const { disable, loading, buttonState } = useContext(StateContext);
+  const { disable, loading, buttonState,setFormPost } = useContext(StateContext);
 
   const color = lists.length < 1 ? "" : "lightBlue";
   var key = uuid();

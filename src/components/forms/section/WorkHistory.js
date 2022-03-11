@@ -21,7 +21,7 @@ function WorkHistory() {
   const [focusEnd, setFocusEnd] = useState(false);
   const [hasValueEnd, setHasValueEnd] = useState(false);
 
-  const { buttonState } = useContext(StateContext);
+  const { buttonState,setFormPost } = useContext(StateContext);
 
  
   

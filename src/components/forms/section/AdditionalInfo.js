@@ -1,9 +1,10 @@
 import { Button, Container, Grid, Icon, TextareaAutosize, TextField } from "@mui/material";
 // date-fns
-import React, { useEffect,useState } from "react";
 import uuid from 'react-uuid'
 import SkillList from "./component/skillList";
 import "./section.css";
+import React, { useEffect, useState, useContext } from "react";
+import { StateContext } from "../../../context/state";
 
 
 
@@ -11,6 +12,8 @@ function Info() {
   const [info, setinfo] = React.useState("");
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
+  const { buttonState,setFormPost } = useContext(StateContext);
+
   
   
 const color = lists.length < 1?"":"lightBlue"
@@ -41,7 +44,7 @@ var key = uuid()
  useEffect(() => {
    if (info=="") {
      
-       setdisabled(true)
+    setdisabled(true)
    }else{
     setdisabled(false) 
    }

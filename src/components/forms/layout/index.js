@@ -69,29 +69,30 @@ export default function StepperHorizotal() {
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
+
     switch (activeStep) {
       case 0:
-        postData("education").then(()=>{
+        postData("personal-info").then(()=>{
           setActiveStepTitle("Education");
         })
         break;
       case 1:
-        postData("history").then(()=>{
+        postData("education-history").then(()=>{
           setActiveStepTitle("Work History");
         })
         break;
       case 2:
-        postData("memberships").then(()=>{
+        postData("work-history").then(()=>{
           setActiveStepTitle("Professioal Membership");
         })
         break;
       case 3:
-        postData("skills").then(()=>{
+        postData("membership-history").then(()=>{
           setActiveStepTitle("Skills");
         })
         break;
       case 4:
-        postData("info").then(()=>{
+        postData("skills").then(()=>{
           setActiveStepTitle("Additional Information");
         })
         break;
