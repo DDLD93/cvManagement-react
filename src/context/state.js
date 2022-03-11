@@ -12,7 +12,9 @@ export default function StateContextProvider ({ children }) {
     const loadingState = (e) => setLoading(e)
 
     const [formPostData, setformPostData] = useState(undefined)
-    const setFormPost = (data) => setformPostData(data)
+    const setFormPost = (data) => {
+      setformPostData(data)
+    }
 
 
     async function postData(url = '', data = {}) {

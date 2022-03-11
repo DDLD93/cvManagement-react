@@ -20,7 +20,7 @@ function Membership() {
   const [focusStart, setFocusStart] = useState(false);
   const [hasValueStart, setHasValueStart] = useState(false);
 
-  const { disable, loading, buttonState } = useContext(StateContext);
+  const { disable, loading,formPostData, buttonState,setFormPost } = useContext(StateContext);
   
 const color = lists.length < 1?"":"lightBlue"
 var key = uuid()
@@ -44,22 +44,23 @@ var key = uuid()
   
    
   }
-useMemo(() => {
-
-  if (lists.length>0) {
-   
-    buttonState(true)
-    setFormPost(formData)   
-   }
-}, [lists])
+const readyState = () =>{
+  //lists.length > 0 ? buttonState(false) : buttonState(true);
+  
+  setFormPost(JSON.stringify(lists))
+  console.log(formPostData)
+}
 
  useEffect(() => {
    if (hasValueStart==""||organisation==""||title=="") {
      setdisabled(true)
    }else{
-    setdisabled(false) 
+    setdisabled(false)
+    
    }
-   lists.length > 0 ? buttonState(false) : buttonState(true);
+   return()=>{
+    lists.length > 0 ? readyState() : buttonState(true);
+   }
  }, [organisation,title,hasValueStart,lists])
  
   
