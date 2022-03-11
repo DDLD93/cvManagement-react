@@ -33,7 +33,10 @@ var key = uuid()
   
    
   }
-
+  const readyState = () => {
+    setFormPost(JSON.stringify(lists));
+    buttonState(false)
+  };
 
  useEffect(() => {
    if (info=="") {
@@ -42,7 +45,8 @@ var key = uuid()
    }else{
     setdisabled(false) 
    }
- 
+lists.length > 0 ? readyState() : buttonState(true);
+
  }, [info])
  
   

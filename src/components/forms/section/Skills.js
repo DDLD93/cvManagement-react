@@ -1,7 +1,6 @@
 import { Button, Container, Grid, Icon, TextField ,Typography  } from "@mui/material";
 // date-fns
 import uuid from 'react-uuid'
-import RenderListtwo from "./component/ListTwo";
 import SkillList from "./component/skillList";
 import AddIcon from '@mui/icons-material/Add';
 import React, { useEffect, useState, useContext } from "react";
@@ -36,6 +35,10 @@ var key = uuid()
     let id = e.target.id
      setlists(lists.filter(item => item.id !== id));
   }
+  const readyState = () => {
+    setFormPost(JSON.stringify(lists));
+    buttonState(false)
+  };
 
 
  useEffect(() => {
@@ -44,7 +47,7 @@ var key = uuid()
    }else{
     setdisabled(false) 
    }
-   lists.length > 0 ? buttonState(false) : buttonState(true);
+   lists.length > 0 ? readyState() : buttonState(true);
 
  }, [skill,lists])
  
