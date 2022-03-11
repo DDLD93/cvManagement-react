@@ -33,17 +33,13 @@ var key = uuid()
         
      }  
   const deleteEntry = (e)=>{
-    console.log(lists)
     let id = e.target.id
      setlists(lists.filter(item => item.id !== id));
-  
-   
   }
 
 
  useEffect(() => {
    if (skill=="") {
-     
        setdisabled(true)
    }else{
     setdisabled(false) 

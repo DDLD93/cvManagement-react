@@ -49,9 +49,7 @@ export default function StepperHorizotal() {
     setActiveStep(newActiveStep);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+
 
   const handleStep = (step,ssss) => () => {
     setActiveStep(step);
