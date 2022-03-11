@@ -39,7 +39,6 @@ var key = uuid()
      
      }  
   const deleteEntry = (e)=>{
-    console.log(e.target)
     let id = e.target.id
      setlists(lists.filter(item => item.id !== id));
   
