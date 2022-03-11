@@ -40,7 +40,12 @@ function Education() {
     console.log(lists.length);
     let id = e.target.id;
     setlists(lists.filter((item) => item.id !== id));
-  };
+  }
+    const readyState = () => {
+      setFormPost(JSON.stringify(lists));
+      buttonState(false)
+    };
+
 
   useEffect(() => {
     if (qualf == "" || inst == "" || hasValueStart == "" || hasValueEnd == "") {
@@ -48,7 +53,7 @@ function Education() {
     } else {
       setdisabled(false);
     }
-    lists.length > 0 ? buttonState(false) : buttonState(true);
+    lists.length > 0 ? readyState() : buttonState(true);
   }, [hasValueStart, hasValueEnd, qualf, inst, lists]);
 
   return (

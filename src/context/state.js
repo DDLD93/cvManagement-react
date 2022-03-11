@@ -12,22 +12,28 @@ export default function StateContextProvider ({ children }) {
     const loadingState = (e) => setLoading(e)
 
     const [formPostData, setformPostData] = useState(undefined)
-    const setFormPost = (data) => {
-      setformPostData(data)
-    }
+    const setFormPost = (data) => setformPostData(data)
 
 
-    async function postData(url = '', data = {}) {
+    async function postData(url = '') {
+      setLoading(true)
       try {
-        const response = await fetch(url, {
+        const response = await fetch(`http://localhost:4000/forms/${url}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: data
+          body: formPostData
         });
+        setLoading(false)
+        
+
         return response.json(); 
+        
       } catch (error) {
+        console.log(formPostData)
+        setLoading(false)
+
         return error
       }
       

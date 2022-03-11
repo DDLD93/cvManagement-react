@@ -1,27 +1,35 @@
-import React, { useContext,useState } from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepButton from '@mui/material/StepButton';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import PersanalInfo from '../section/PersonalInfo';
-import Education from '../section/Education';
-import WorkHistory from '../section/WorkHistory';
-import Membership from '../section/Membership';
-import Skills from '../section/Skills';
-import LoadingButton from '@mui/lab/LoadingButton';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import Info from '../section/AdditionalInfo';
-import {StateContext} from "../../../context/state";
+import React, { useContext, useState } from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import PersanalInfo from "../section/PersonalInfo";
+import Education from "../section/Education";
+import WorkHistory from "../section/WorkHistory";
+import Membership from "../section/Membership";
+import Skills from "../section/Skills";
+import LoadingButton from "@mui/lab/LoadingButton";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import Info from "../section/AdditionalInfo";
+import { StateContext } from "../../../context/state";
 
-const steps = ['Personal Info','Education', 'Work History','Professioal Membership','Skills','Referees','Additional Information'];
+const steps = [
+  "Personal Info",
+  "Education",
+  "Work History",
+  "Professioal Membership",
+  "Skills",
+  "Referees",
+  "Additional Information",
+];
 
 export default function StepperHorizotal() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeStepTitle, setActiveStepTitle] = React.useState("Personal Info");
   const [completed, setCompleted] = React.useState({});
-  const {disable,loading} = useContext(StateContext)
+  const { disable, loading, formPostData, postData } = useContext(StateContext);
 
   const totalSteps = () => {
     return steps.length;
@@ -50,11 +58,10 @@ export default function StepperHorizotal() {
   };
 
 
-
-  const handleStep = (step,ssss) => () => {
+  const handleStep = (step, ssss) => () => {
     setActiveStep(step);
-    setActiveStepTitle(ssss)
-    console.log(activeStepTitle)
+    setActiveStepTitle(ssss);
+    console.log(activeStepTitle);
   };
 
   const handleComplete = () => {
@@ -62,12 +69,41 @@ export default function StepperHorizotal() {
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
-    activeStep == 0 &&  setActiveStepTitle(prev => prev = "Education")
-    activeStep == 1 &&  setActiveStepTitle(prev => prev = "Work History")
-    activeStep == 2 &&  setActiveStepTitle(prev => prev = "Professioal Membership")
-    activeStep == 3 &&  setActiveStepTitle(prev => prev = "Skills")
-    activeStep == 4 &&  setActiveStepTitle(prev => prev = "Additional Information")
-    
+    switch (activeStep) {
+      case 0:
+        postData("education").then(()=>{
+          setActiveStepTitle("Education");
+        })
+        break;
+      case 1:
+        postData("history").then(()=>{
+          setActiveStepTitle("Work History");
+        })
+        break;
+      case 2:
+        postData("memberships").then(()=>{
+          setActiveStepTitle("Professioal Membership");
+        })
+        break;
+      case 3:
+        postData("skills").then(()=>{
+          setActiveStepTitle("Skills");
+        })
+        break;
+      case 4:
+        postData("info").then(()=>{
+          setActiveStepTitle("Additional Information");
+        })
+        break;
+      default:
+        break;
+    }
+
+    // activeStep == 0 && setActiveStepTitle("Education");
+    // activeStep == 1 && setActiveStepTitle("Work History");
+    // activeStep == 2 && setActiveStepTitle("Professioal Membership");
+    // activeStep == 3 && setActiveStepTitle("Skills");
+    // activeStep == 4 && setActiveStepTitle("Additional Information");
   };
 
   const handleReset = () => {
@@ -76,11 +112,11 @@ export default function StepperHorizotal() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index,label)}>
+            <StepButton color="inherit" onClick={handleStep(index, label)}>
               {label}
             </StepButton>
           </Step>
@@ -92,25 +128,26 @@ export default function StepperHorizotal() {
             <Typography sx={{ mt: 2, mb: 1 }}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Box sx={{ flex: '1 1 auto' }} />
-              <Button variant='contained' onClick={handleReset}>Submit</Button>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Box sx={{ flex: "1 1 auto" }} />
+              <Button variant="contained" onClick={handleReset}>
+                Submit
+              </Button>
             </Box>
           </React.Fragment>
         ) : (
           <React.Fragment>
             {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
-                <h3 style={{marginTop:"10px"}} >{activeStepTitle}</h3>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2,minHeight:300 }}>
-                {activeStepTitle == 'Personal Info' && <PersanalInfo/>}
-                {activeStepTitle == 'Education' && <Education/>}
-                {activeStepTitle == 'Work History' && <WorkHistory/>}
-                {activeStepTitle == 'Professioal Membership' && <Membership/>}
-                {activeStepTitle == 'Skills' && <Skills/>}
-                {activeStepTitle == 'Additional Information' && <Info/>}
-
+            <h3 style={{ marginTop: "10px" }}>{activeStepTitle}</h3>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2, minHeight: 300 }}>
+              {activeStepTitle == "Personal Info" && <PersanalInfo />}
+              {activeStepTitle == "Education" && <Education />}
+              {activeStepTitle == "Work History" && <WorkHistory />}
+              {activeStepTitle == "Professioal Membership" && <Membership />}
+              {activeStepTitle == "Skills" && <Skills />}
+              {activeStepTitle == "Additional Information" && <Info />}
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt:7,pb:7,pr:7 }}>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 7, pb: 7, pr: 7 }}>
               {/* <Button
                 color="inherit"
                 disabled={activeStep === 0}
@@ -119,26 +156,25 @@ export default function StepperHorizotal() {
               >
                 Back
               </Button> */}
-              <Box sx={{ flex: '1 1 auto' }} />
+              <Box sx={{ flex: "1 1 auto" }} />
               {/* <Button onClick={handleNext} sx={{ mr: 1 }}>
                 Save
               </Button> */}
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
-                  <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                  <Typography variant="caption" sx={{ display: "inline-block" }}>
                     Step {} already completed
                   </Typography>
                 ) : (
                   <LoadingButton
-                  variant='contained'
-                  loading={loading}
-                  disabled={disable}
-                  endIcon={<NavigateNextIcon />}
-                  loadingPosition="end"
-                   onClick={handleComplete}>
-                    {completedSteps() === totalSteps() - 1
-                      ? 'Preview'
-                      : 'Continue'}
+                    variant="contained"
+                    loading={loading}
+                    disabled={disable}
+                    endIcon={<NavigateNextIcon />}
+                    loadingPosition="end"
+                    onClick={handleComplete}
+                  >
+                    {completedSteps() === totalSteps() - 1 ? "Preview" : "Continue"}
                   </LoadingButton>
                 ))}
             </Box>

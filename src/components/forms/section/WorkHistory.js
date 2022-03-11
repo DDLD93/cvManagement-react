@@ -47,10 +47,11 @@ var key = uuid()
     console.log(lists)
     let id = e.target.id
      setlists(lists.filter(item => item.id !== id));
-  
-   
   }
-
+  const readyState = () => {
+    setFormPost(JSON.stringify(lists));
+    buttonState(false)
+  };
 
  useEffect(() => {
    if (organisation==""||title==""||hasValueStart==""||hasValueEnd=="") {
@@ -59,7 +60,7 @@ var key = uuid()
    }else{
     setdisabled(false) 
    }
-   lists.length > 0 ? buttonState(false) : buttonState(true);
+   lists.length > 0 ? readyState() : buttonState(true);
 
  
  }, [hasValueStart,hasValueEnd,organisation,title,lists])
