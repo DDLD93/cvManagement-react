@@ -1,12 +1,12 @@
 import { Button, Container, Grid, Icon, TextField } from "@mui/material";
 // date-fns
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { StateContext } from "../../../context/state";
 import uuid from 'react-uuid'
 import RenderList from "./component/Lists"
 import Typography from "@mui/material/Typography";
 import AddIcon from '@mui/icons-material/Add';
 
-import RenderListtwo from "./component/ListTwo";
 import "./section.css";
 
 
@@ -19,6 +19,8 @@ function Membership() {
   const [disabled, setdisabled] = useState(true)
   const [focusStart, setFocusStart] = useState(false);
   const [hasValueStart, setHasValueStart] = useState(false);
+
+  const { disable, loading, buttonState } = useContext(StateContext);
   
 const color = lists.length < 1?"":"lightBlue"
 var key = uuid()
@@ -37,7 +39,7 @@ var key = uuid()
      
      }  
   const deleteEntry = (e)=>{
-    console.log(lists)
+    console.log(e.target)
     let id = e.target.id
      setlists(lists.filter(item => item.id !== id));
   
@@ -52,8 +54,8 @@ var key = uuid()
    }else{
     setdisabled(false) 
    }
- 
- }, [organisation,title,hasValueStart])
+   lists.length > 0 ? buttonState(false) : buttonState(true);
+ }, [organisation,title,hasValueStart,lists])
  
   
   return (

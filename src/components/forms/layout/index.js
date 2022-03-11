@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext,useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -13,6 +13,7 @@ import Skills from '../section/Skills';
 import LoadingButton from '@mui/lab/LoadingButton';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Info from '../section/AdditionalInfo';
+import {StateContext} from "../../../context/state";
 
 const steps = ['Personal Info','Education', 'Work History','Professioal Membership','Skills','Referees','Additional Information'];
 
@@ -20,6 +21,7 @@ export default function StepperHorizotal() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeStepTitle, setActiveStepTitle] = React.useState("Personal Info");
   const [completed, setCompleted] = React.useState({});
+  const {disable,loading} = useContext(StateContext)
 
   const totalSteps = () => {
     return steps.length;
@@ -131,7 +133,8 @@ export default function StepperHorizotal() {
                 ) : (
                   <LoadingButton
                   variant='contained'
-                  loading={false}
+                  loading={loading}
+                  disabled={disable}
                   endIcon={<NavigateNextIcon />}
                   loadingPosition="end"
                    onClick={handleComplete}>

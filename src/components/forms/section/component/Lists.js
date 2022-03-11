@@ -8,12 +8,15 @@ const RenderList = (prop) => {
      <TextField disabled  defaultValue={prop.title}  label="Title" variant="outlined" />
      <TextField disabled defaultValue={prop.date} disabled label="Date" />
      <Icon fontSize="50"
-     onClick= {prop.delete}
-     id={prop.id}
       style={{
-         cursor:"pointer"
+         cursor:"pointer",
+         color:"red"
+         
      }}>
-         <RemoveCircleOutlineIcon/>
+         <RemoveCircleOutlineIcon
+         id={prop.id}
+         onClick= {prop.delete}
+         />
      </Icon>
         </div>
     )

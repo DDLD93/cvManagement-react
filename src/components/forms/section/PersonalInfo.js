@@ -1,4 +1,4 @@
-import {React,useState} from "react";
+import {React,useEffect,useState,useContext} from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -11,7 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextArea from "./component/TextArea";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'; 
+import {StateContext} from "../../../context/state"
 
 function PersonalInfo() {
   const [firstName, setfirstName] = useState("")
@@ -22,6 +23,8 @@ function PersonalInfo() {
   const [gender, setgender] = useState("")
   const [address, setaddress] = useState("")
   const [personalStatement, setpersonalStatement] = useState("")
+  const { buttonState } = useContext(StateContext);
+
 
 
   const genderOption = [
@@ -45,21 +48,13 @@ function PersonalInfo() {
   }).catch(err =>{
     console.log(err)
   })
-  const chages= (e)=>{
-    console.log(e)
-  }
+ useEffect(() => {
+  firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||address==""||personalStatement==""?buttonState(true):buttonState(false)
+  console.log(firstName,lastName,surName,email,phone,gender,address,personalStatement)
+ }, [firstName,lastName,surName,email,phone,gender,address,personalStatement])
+ 
 
-  const handleChange = () => {
-    console.log(
-      firstName,
-      lastName,
-      surName,
-      email,
-      phone,
-      gender,
-      address,
-      personalStatement )
-    };
+  
     return (
     <Container fixed>
       <Box
@@ -140,10 +135,6 @@ function PersonalInfo() {
   />
 </Button>
       </Box>
-      <Button
-      sx={{mt:30}}
-      onClick={handleChange}
-      >test</Button>
     </Container>
   );
 }

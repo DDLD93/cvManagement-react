@@ -1,10 +1,11 @@
 import { Button, Container, Grid, Icon, TextField ,Typography  } from "@mui/material";
 // date-fns
-import React, { useEffect,useState } from "react";
 import uuid from 'react-uuid'
 import RenderListtwo from "./component/ListTwo";
 import SkillList from "./component/skillList";
 import AddIcon from '@mui/icons-material/Add';
+import React, { useEffect, useState, useContext } from "react";
+import { StateContext } from "../../../context/state";
 
 import "./section.css";
 
@@ -14,6 +15,8 @@ function Skills() {
   const [skill, setskill] = React.useState("");
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
+  const { buttonState } = useContext(StateContext);
+
   
   
 const color = lists.length < 1?"":"lightBlue"
@@ -45,8 +48,9 @@ var key = uuid()
    }else{
     setdisabled(false) 
    }
- 
- }, [skill])
+   lists.length > 0 ? buttonState(false) : buttonState(true);
+
+ }, [skill,lists])
  
   
   return (

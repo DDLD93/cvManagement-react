@@ -1,10 +1,11 @@
 import { Button, Container, Grid, Icon, TextField } from "@mui/material";
 // date-fns
-import React, { useEffect,useState } from "react";
 import uuid from 'react-uuid'
 import RenderListtwo from "./component/ListTwo";
 import Typography from "@mui/material/Typography";
 import AddIcon from '@mui/icons-material/Add';
+import React, { useEffect, useState, useContext } from "react";
+import { StateContext } from "../../../context/state";
 
 import "./section.css";
 
@@ -19,6 +20,9 @@ function WorkHistory() {
   const [hasValueStart, setHasValueStart] = useState(false);
   const [focusEnd, setFocusEnd] = useState(false);
   const [hasValueEnd, setHasValueEnd] = useState(false);
+
+  const { buttonState } = useContext(StateContext);
+
  
   
   
@@ -55,8 +59,10 @@ var key = uuid()
    }else{
     setdisabled(false) 
    }
+   lists.length > 0 ? buttonState(false) : buttonState(true);
+
  
- }, [hasValueStart,hasValueEnd,organisation,title])
+ }, [hasValueStart,hasValueEnd,organisation,title,lists])
  
   
   return (
