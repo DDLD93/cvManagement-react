@@ -4,6 +4,8 @@ import { stringify } from "stylis";
 export const StateContext = createContext();
 
 export default function StateContextProvider({ children }) {
+  const [user, setuser] = useState(localStorage.getItem("user")|| null)
+
   const [disable, setDisable] = useState(true);
   const buttonState = (e) => setDisable(e);
 
@@ -43,9 +45,13 @@ export default function StateContextProvider({ children }) {
         res.json();
       })
       .then((response) => {
-        response.statu == "success"
-          ? localStorage.setItem("user", JSON.stringify(response.payload))
-          : console.log("error login");
+        if(response.status == "success"){
+          localStorage.setItem("user", JSON.stringify(response.payload))
+          localStorage.setItem("token",response.token)
+          setuser(localStorage.getItem("user")||null)
+        } 
+         console.log("error login");
+          
       }).catch((err)=>{
         console.log(err)
       });
@@ -54,6 +60,7 @@ export default function StateContextProvider({ children }) {
   useEffect(() => {}, []);
 
   const context = {
+    user,
     disable,
     loading,
     formPostData,
