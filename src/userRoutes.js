@@ -47,9 +47,6 @@ import SignUp from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import useContext from "react";
-import { StateContext } from "./context/state"
-//const {isLogin } = useContext(StateContext);
 
 const routes = [
   {
@@ -57,7 +54,7 @@ const routes = [
     name: "Dashboard",
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/",
+    route: "/dashboard",
     component: <Dashboard />,
   },
   {
@@ -105,43 +102,6 @@ const routes = [
     name: "Log Out",
     key: "sign-in",
     icon: <Icon fontSize="small">logout</Icon>,
-    route: "/login",
-    component: <SignIn />,
-  },
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   route: "/authentication/sign-up",
-  //   component: <SignUp />,
-  // },
-];
-const staffRoutes = [
- 
- 
-  {
-    type: "collapse",
-    name: "CV Documents",
-    key: "cv-document",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/",
-    component: <Document />,
-  },
-
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <Profile />,
-  },
-  {
-    type: "collapse",
-    name: "Log Out",
-    key: "sign-in",
-    icon: <Icon fontSize="small">logout</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
   },
@@ -155,16 +115,4 @@ const staffRoutes = [
   // },
 ];
 
-const publicRoutes = [
-
-  {
-    type: "collapse",
-    name: "Log Out",
-    key: "sign-in",
-    icon: <Icon fontSize="small">logout</Icon>,
-    route: "/",
-    component: <SignIn />,
-  }
-];
-
-export  {routes,staffRoutes,publicRoutes};
+export default routes;

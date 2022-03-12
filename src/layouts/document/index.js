@@ -36,7 +36,7 @@ import StepperHorizotal from "components/forms/layout";
 function Document() {
   return (
     <DashboardLayout>
-      <DashboardNavbar absolute isMini />
+      <DashboardNavbar />
       <MDBox mt={8}>
         <StepperHorizotal/>
       </MDBox>

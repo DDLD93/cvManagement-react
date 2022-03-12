@@ -107,7 +107,6 @@ function Education() {
             if (e.target.value) setHasValueStart(e.target.value);
             else setHasValueStart(false);
           }}
-          label="Date"
           type={hasValueStart || focusStart ? "date" : "text"}
           label="Date Started"
           variant="outlined"
@@ -119,7 +118,6 @@ function Education() {
             if (e.target.value) setHasValueEnd(e.target.value);
             else setHasValueEnd(false);
           }}
-          label="Date"
           type={hasValueEnd || focusEnd ? "date" : "text"}
           label="Date Completed"
           variant="outlined"

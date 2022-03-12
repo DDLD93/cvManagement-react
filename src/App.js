@@ -41,7 +41,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 // Material Dashboard 2 React routes
-import routes from "routes";
+import {routes,staffRoutes,publicRoutes} from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -49,6 +49,8 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 // Images
 import brandWhite from "assets/images/buk-logo.png";
 import brandDark from "assets/images/buk-logo.png";
+import  {useContext } from "react";
+import { StateContext } from "./context/state";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -65,6 +67,8 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const { isLogin,isAdmin } = useContext(StateContext);
+
 
   // Cache for the rtl
   useMemo(() => {
@@ -91,6 +95,7 @@ export default function App() {
       setOnMouseEnter(false);
     }
   };
+let paths = isLogin?isAdmin?routes:staffRoutes:publicRoutes
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
@@ -152,7 +157,7 @@ export default function App() {
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
             brandName="BUK CV Management"
-            routes={routes}
+            routes={paths}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
@@ -162,9 +167,9 @@ export default function App() {
       )}
       {/* {layout === "vr" && <Configurator />} */}
       <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-        <Route path="/login" element={<Navigate to="/authentication/sign-in" />} />
+        {getRoutes(paths)}
+        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/login" element={<Navigate to="/login" />} />
       </Routes>
     </ThemeProvider>
   );
