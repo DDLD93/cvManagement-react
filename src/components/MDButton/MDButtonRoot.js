@@ -16,11 +16,12 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Button from "@mui/material/Button";
+import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from "@mui/material/styles";
 
-export default styled(Button)(({ theme, ownerState }) => {
+export default styled(LoadingButton)(({ theme, ownerState }) => {
   const { palette, functions, borders, boxShadows } = theme;
-  const { color, variant, size, circular, iconOnly, darkMode } = ownerState;
+  const { color, variant, size, circular, iconOnly, darkMode,loading } = ownerState;
 
   const { white, text, transparent, gradients, grey } = palette;
   const { boxShadow, linearGradient, pxToRem, rgba } = functions;

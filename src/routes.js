@@ -47,8 +47,6 @@ import SignUp from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import useContext from "react";
-import { StateContext } from "./context/state"
 //const {isLogin } = useContext(StateContext);
 
 const routes = [

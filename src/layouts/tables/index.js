@@ -30,6 +30,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
+import BasicModal from "components/addUserModal";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
@@ -63,7 +64,8 @@ function Tables() {
                   entriesPerPage={false}
                   showTotalEntries={true}
                   noEndBorder
-                />
+                  />
+                  <BasicModal/>
               </MDBox>
             </Card>
           </Grid>

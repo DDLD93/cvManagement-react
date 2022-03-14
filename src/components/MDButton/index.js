@@ -23,11 +23,15 @@ import MDButtonRoot from "components/MDButton/MDButtonRoot";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController } from "context";
+import  {useContext } from "react";
+import { StateContext } from "../../context/state";
 
 const MDButton = forwardRef(
   ({ color, variant, size, circular, iconOnly, children, ...rest }, ref) => {
     const [controller] = useMaterialUIController();
     const { darkMode } = controller;
+    const { loading } = useContext(StateContext);
+
 
     return (
       <MDButtonRoot
@@ -36,6 +40,7 @@ const MDButton = forwardRef(
         color="primary"
         variant={variant === "gradient" ? "contained" : variant}
         size={size}
+        loading={loading}
         ownerState={{ color, variant, size, circular, iconOnly, darkMode }}
       >
         {children}

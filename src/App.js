@@ -67,7 +67,7 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-  const { isLogin,isAdmin } = useContext(StateContext);
+  const { isLogin,isAdmin,user } = useContext(StateContext);
 
 
   // Cache for the rtl
@@ -95,7 +95,7 @@ export default function App() {
       setOnMouseEnter(false);
     }
   };
-let paths = isLogin?isAdmin?routes:staffRoutes:publicRoutes
+let paths = user?user.userRole =="admin"?routes:staffRoutes:publicRoutes
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);

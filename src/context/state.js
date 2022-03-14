@@ -34,30 +34,36 @@ export default function StateContextProvider({ children }) {
     return response.json();
   }
   const login = (data) => {
-    fetch("http://localhost:4000/login", {
+    setLoading(true)
+    fetch("http://localhost:5000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: data,
+      body: JSON.stringify(data),
     })
-      .then((res) => {
-        res.json();
-      })
+      .then((res) => res.json())
       .then((response) => {
-        if(response.status == "success"){
+       console.log("respose>>>>>",response)
+        if(response.status == "Success"){
           localStorage.setItem("user", JSON.stringify(response.payload))
-          localStorage.setItem("token",response.token)
-          setuser(localStorage.getItem("user")||null)
+          localStorage.setItem("token", "token")
+          setuser(JSON.parse(localStorage.getItem("user")))
+          setLoading(false)
         } 
-         console.log("error login");
-          
+        setLoading(false)
       }).catch((err)=>{
         console.log(err)
+        setLoading(false)
       });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+  
+    let localuser =JSON.parse(localStorage.getItem("user"))|| null
+    setuser(localuser)
+   
+  }, []);
 
   const context = {
     user,

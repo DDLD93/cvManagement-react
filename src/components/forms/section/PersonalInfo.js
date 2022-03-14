@@ -84,23 +84,7 @@ if (firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||
         <TextField onChange={(e) => setfirstName(e.target.value)} id="firstName" label="First Name" variant="outlined" />
         <TextField onChange={(e) => setsurName(e.target.value)} id="surName" label="Surname" variant="outlined" />
         <TextField onChange={(e) => setlastName(e.target.value)} id="lastName" label="Last Name" variant="outlined" />
-        <Box sx={{width:100 }}>
-        <TextField
-          id="outlined-select-currency"
-          variant="outlined"
-          select
-          label="Gender"
-          value={genderOption}
-          onChange={(e) => setgender(e.target.value)}         
-           helperText="Select your gender"
-        >
-          {genderOption.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-    </Box>
+       
       </Box>
       <Box
         component="form"

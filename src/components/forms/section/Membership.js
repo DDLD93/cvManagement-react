@@ -101,7 +101,6 @@ function Membership() {
             if (e.target.value) setHasValueStart(e.target.value);
             else setHasValueStart(false);
           }}
-          label="Date"
           type={hasValueStart || focusStart ? "date" : "text"}
           label="Date Started"
           variant="outlined"

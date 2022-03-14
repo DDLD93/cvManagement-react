@@ -13,8 +13,8 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
+import { StateContext } from "../../../context/state";
 // react-router-dom components
 import { Link } from "react-router-dom";
 
@@ -43,9 +43,15 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/buk-bg.jpg";
 import imageLogo from "../../../assets/images/buk-logo.png"
 import { Typography } from "@mui/material";
+import { Login } from "@mui/icons-material";
+
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [email, setemail] = useState("")
+  const [password, setpassword] = useState("")
+  const {login} = useContext(StateContext);
+
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
@@ -74,10 +80,10 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput onChange={(e)=>setemail(e.target.value)} type="email" label="Email" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput onChange={(e)=>setpassword(e.target.value)} type="password" label="Password" fullWidth />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -92,7 +98,18 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton 
+              variant="gradient" 
+              color="info" 
+              fullWidth
+              onClick={()=>{
+                let data ={
+                  email:email,
+                  password:password
+                }
+                login(data)
+              }}
+              >
                 sign in
               </MDButton>
             </MDBox>
