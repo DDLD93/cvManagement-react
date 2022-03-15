@@ -6,7 +6,7 @@ const RenderList = (prop) => {
  
      <TextField disabled  defaultValue={prop.orgnisation}  label="Orgnisation" variant="outlined" />
      <TextField disabled  defaultValue={prop.title}  label="Title" variant="outlined" />
-     <TextField disabled defaultValue={prop.date} disabled label="Date" />
+     <TextField disabled defaultValue={prop.date}  label="Date" />
      <Icon fontSize="50"
       style={{
          cursor:"pointer",

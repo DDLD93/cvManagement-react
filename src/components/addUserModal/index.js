@@ -8,6 +8,7 @@ import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import BasicSelect from "components/forms/section/component/Select";
 import SelectMenu from "components/forms/section/component/Select";
+import SelectDropdown from "components/forms/section/component/Select";
 
 const style = {
   modal: {
@@ -49,6 +50,32 @@ export default function BasicModal() {
   const [focusStart, setFocusStart] = useState(false);
   const [hasValueStart, setHasValueStart] = useState(false);
 
+async function postData(data) {
+  
+  console.log(JSON.stringify(data) )
+  const response = await fetch("http://localhost:5000/create", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data) 
+  });
+  return response.json()
+}
+
+  const addUser = (event) => {
+    event.preventDefault();
+    let data = new FormData(event.currentTarget);
+  data =  {
+      email: data.get('email'),
+      phone: data.get('phone'),
+      fullName: data.get('fullName'),
+      userRole: data.get('role'),
+      manager: data.get('manager'),
+    } 
+    postData(data).then(res=>console.log(res)).catch(err=>console.log(err))
+  }
+
   return (
     <div style={style.button}>
       <PersonAddAlt1Icon sx={style.add} variant="contained" onClick={handleOpen} />
@@ -58,20 +85,19 @@ export default function BasicModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style.modal} component="form" noValidate autoComplete="off">
+        <Box sx={style.modal} component="form" onSubmit={addUser} noValidate autoComplete="off">
             <MDTypography variant="h4" sx={{mb:5}}>
             Create User
             </MDTypography>
           <Grid justifyContent="center" container spacing={2}>
           <Grid item xs={3}>
-                <SelectMenu/>
+                <SelectDropdown/>
             </Grid>
           <Grid item xs={9}>
               <TextField
                 fullWidth
-                onChange={(e) => setphone(e.target.value)}
-                type="number"
-                id="Phone"
+                type="name"
+                name="fullName"
                 label="Full Name"
                 variant="outlined"
               />
@@ -79,9 +105,8 @@ export default function BasicModal() {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                onChange={(e) => setemail(e.target.value)}
                 type="email"
-                id="Email"
+                name="email"
                 label="Email Address"
                 variant="outlined"
               />
@@ -89,22 +114,22 @@ export default function BasicModal() {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                onChange={(e) => setphone(e.target.value)}
                 type="number"
                 id="Phone"
+                name="phone"
                 label="Phone Number"
                 variant="outlined"
               />
             </Grid>
             <Grid item xs={6}>
-              <TextField fullWidth variant="outlined" label="Ueer Role" />
+              <TextField fullWidth name="role" variant="outlined" label="User Role" />
             </Grid>
             <Grid item xs={6}>
-              <TextField fullWidth variant="outlined" label="Staff Manager" />
+              <TextField fullWidth name="manager" variant="outlined" label="Staff Manager" />
             </Grid>
             <Grid container justifyContent="space-around" item xs={12}>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox/>
+              <Checkbox name="sms"/>
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -115,7 +140,7 @@ export default function BasicModal() {
               </MDTypography>
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox disabled />
+              <Checkbox  disabled />
               <MDTypography
                 variant="button"
                 fontWeight="regular"
@@ -129,6 +154,7 @@ export default function BasicModal() {
             <Grid item xs={12} mt={4} mb={1}>
               <MDButton 
               variant="gradient" 
+              type="submit"
               color="info" 
               fullWidth
               >
