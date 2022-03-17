@@ -22,13 +22,14 @@ export default function StateContextProvider({ children }) {
   const changeIsAdmin = (e) => setisAdmin(e);
 
   async function postData(url = "") {
+    console.log(formPostData)
     setLoading(true);
-    const response = await fetch(`http://localhost:4000/forms/${url}`, {
+    const response = await fetch(`http://localhost:5000/forms/modify`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: formPostData,
+      body:JSON.stringify(formPostData),
     });
     setLoading(false);
     return response.json();

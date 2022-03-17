@@ -6,8 +6,8 @@ const RenderListThree = (prop) => {
  
      <TextField disabled  defaultValue={prop.institution}  label="Institution" variant="outlined" />
      <TextField disabled  defaultValue={prop.qualification}  label="Qualification" variant="outlined" />
-     <TextField disabled defaultValue={prop.date} disabled label="Started" />
-     <TextField disabled defaultValue={prop.dateTwo} disabled label="Completed" />
+     <TextField disabled defaultValue={prop.date}  label="Started" />
+     <TextField disabled defaultValue={prop.dateTwo}  label="Completed" />
      <Icon fontSize="50"
       style={{
          cursor:"pointer",

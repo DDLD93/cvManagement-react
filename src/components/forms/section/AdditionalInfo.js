@@ -6,15 +6,13 @@ import "./section.css";
 import React, { useEffect, useState, useContext } from "react";
 import { StateContext } from "../../../context/state";
 import TextArea from "./component/TextArea";
-import { width } from "@mui/system";
-
 
 
 function Info() {
   const [info, setinfo] = React.useState("");
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
-  const { buttonState,setFormPost } = useContext(StateContext);
+  const { buttonState,setFormPost,user } = useContext(StateContext);
 
   
   
@@ -39,19 +37,24 @@ var key = uuid()
    
   }
   const readyState = () => {
-    setFormPost(JSON.stringify(lists));
+    setFormPost({
+      id:user.email,
+      key:"additionalInfo",
+      value:info
+    });
     buttonState(false)
   };
 
  useEffect(() => {
+   console.log(info)
    if (info=="") {
      
-    setdisabled(true)
+    buttonState(true)
    }else{
-    setdisabled(false) 
+    buttonState(false)
+    readyState()
+   
    }
-lists.length > 0 ? readyState() : buttonState(true);
-
  }, [info])
  
   

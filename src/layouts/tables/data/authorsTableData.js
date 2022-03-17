@@ -38,7 +38,7 @@ function fetchUsers() {
    
     let tempRow =  {
       author: <Author image={team3} name={user.fullName} email={user.email} />,
-      function: <Job title={user.UserRole} description={user.UserRole} />,
+      function: <Job title={user.userRole} description={user.userRole} />,
       status: (
         <MDBox ml={-1}>
           <MDBadge badgeContent="online" color="dark" variant="gradient" size="sm" />

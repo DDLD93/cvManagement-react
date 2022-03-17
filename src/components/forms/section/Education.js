@@ -19,7 +19,7 @@ function Education() {
   const [focusEnd, setFocusEnd] = useState(false);
   const [hasValueEnd, setHasValueEnd] = useState(false);
 
-  const { disable, loading, buttonState,setFormPost } = useContext(StateContext);
+  const { disable, loading, buttonState,setFormPost,user} = useContext(StateContext);
 
   const color = lists.length < 1 ? "" : "lightBlue";
   var key = uuid();
@@ -42,7 +42,11 @@ function Education() {
     setlists(lists.filter((item) => item.id !== id));
   }
     const readyState = () => {
-      setFormPost(JSON.stringify(lists));
+      setFormPost({
+        id:user.email,
+        key:"education",
+        value:JSON.stringify(lists)
+      });
       buttonState(false)
     };
 

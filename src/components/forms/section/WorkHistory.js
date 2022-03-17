@@ -21,7 +21,7 @@ function WorkHistory() {
   const [focusEnd, setFocusEnd] = useState(false);
   const [hasValueEnd, setHasValueEnd] = useState(false);
 
-  const { buttonState,setFormPost } = useContext(StateContext);
+  const { buttonState,setFormPost,user } = useContext(StateContext);
 
  
   
@@ -49,8 +49,11 @@ var key = uuid()
      setlists(lists.filter(item => item.id !== id));
   }
   const readyState = () => {
-    setFormPost(JSON.stringify(lists));
-    buttonState(false)
+    setFormPost({
+      id:user.email,
+      key:"workHistory",
+      value:JSON.stringify(lists)
+    });    buttonState(false)
   };
 
  useEffect(() => {
@@ -97,7 +100,7 @@ var key = uuid()
           if (e.target.value) setHasValueStart(e.target.value);
           else setHasValueStart(false);
         }}
-        label="Date"
+      
         type={hasValueStart || focusStart ? "date" : "text"}
           label="Date Started"
           variant="outlined"
@@ -110,7 +113,6 @@ var key = uuid()
           if (e.target.value) setHasValueEnd(e.target.value);
           else setHasValueEnd(false);
         }}
-        label="Date"
         type={hasValueEnd || focusEnd ? "date" : "text"}
           label="Date Completed"
           variant="outlined"

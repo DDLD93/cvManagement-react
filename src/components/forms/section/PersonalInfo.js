@@ -23,7 +23,7 @@ function PersonalInfo() {
   const [gender, setgender] = useState("")
   const [address, setaddress] = useState("")
   const [personalStatement, setpersonalStatement] = useState("")
-  const { buttonState,setFormPost } = useContext(StateContext);
+  const { buttonState,setFormPost,user } = useContext(StateContext);
 
 
 

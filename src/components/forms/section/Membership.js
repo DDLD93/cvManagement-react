@@ -17,7 +17,7 @@ function Membership() {
   const [focusStart, setFocusStart] = useState(false);
   const [hasValueStart, setHasValueStart] = useState("");
 
-  const { disable, loading, formPostData, buttonState, setFormPost } = useContext(StateContext);
+  const { disable, loading, formPostData, buttonState, setFormPost,user } = useContext(StateContext);
 
   const color = lists.length < 1 ? "" : "lightBlue";
   var key = uuid();
@@ -38,7 +38,11 @@ function Membership() {
     setlists(lists.filter((item) => item.id !== id));
   };
   const readyState = () => {
-    setFormPost(JSON.stringify(lists));
+    setFormPost({
+      id:user.email,
+      key:"membershipHistory",
+      value:JSON.stringify(lists)
+    });
     buttonState(false)
   };
 

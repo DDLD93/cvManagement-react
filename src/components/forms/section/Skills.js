@@ -14,7 +14,7 @@ function Skills() {
   const [skill, setskill] = React.useState("");
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
-  const { buttonState,setFormPost } = useContext(StateContext);
+  const { buttonState,setFormPost,user } = useContext(StateContext);
 
   
   
@@ -36,7 +36,11 @@ var key = uuid()
      setlists(lists.filter(item => item.id !== id));
   }
   const readyState = () => {
-    setFormPost(JSON.stringify(lists));
+    setFormPost({
+      id:user.email,
+      key:"skills",
+      value:JSON.stringify(lists)
+    });
     buttonState(false)
   };
 
