@@ -48,6 +48,10 @@ function Tables() {
                 mt={-3}
                 py={3}
                 px={2}
+                sx={{display: "flex",
+                justifyContent: "space-between",
+                  alignItems: "center"
+                }}
                 variant="gradient"
                 bgColor="info"
                 borderRadius="lg"
@@ -56,6 +60,7 @@ function Tables() {
                 <MDTypography variant="h6" color="white">
                   User Accounts
                 </MDTypography>
+                <BasicModal/>
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
@@ -65,7 +70,7 @@ function Tables() {
                   showTotalEntries={true}
                   noEndBorder
                   />
-                  <BasicModal/>
+                  
               </MDBox>
             </Card>
           </Grid>

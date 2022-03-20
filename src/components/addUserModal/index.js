@@ -1,13 +1,10 @@
 import React,{useState} from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { Checkbox, Grid, TextField } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import BasicSelect from "components/forms/section/component/Select";
-import SelectMenu from "components/forms/section/component/Select";
 import SelectDropdown from "components/forms/section/component/Select";
 
 const style = {
@@ -30,14 +27,10 @@ const style = {
   button: {
     display: "flex",
     justifyContent: "flex-end",
-    right: "3%",
-    buttom: "0%",
-    position: "fixed",
     zIndex: 10,
   },
   add: {
-    top: 30,
-    height: 40,
+        height: 40,
     width: 40,
     borderRadius: "50%",
   },
@@ -47,8 +40,7 @@ export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [focusStart, setFocusStart] = useState(false);
-  const [hasValueStart, setHasValueStart] = useState(false);
+const [selectStaff, setselectStaff] = useState(false) 
 
 async function postData(data) {
   
@@ -78,7 +70,7 @@ async function postData(data) {
 
   return (
     <div style={style.button}>
-      <PersonAddAlt1Icon sx={style.add} variant="contained" onClick={handleOpen} />
+      <MDButton  onClick={handleOpen} color="primary" >Add User</MDButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -91,7 +83,19 @@ async function postData(data) {
             </MDTypography>
           <Grid justifyContent="center" container spacing={2}>
           <Grid item xs={3}>
-                <SelectDropdown/>
+                <SelectDropdown
+                menuItem={[
+                  {
+                    name:"first",
+                    value:"first"
+                  },
+                  {
+                    name:"second",
+                    value:"second"
+                  }
+                ]}
+                Title={'Title'}
+                />
             </Grid>
           <Grid item xs={9}>
               <TextField
@@ -125,7 +129,19 @@ async function postData(data) {
               <TextField fullWidth name="role" variant="outlined" label="User Role" />
             </Grid>
             <Grid item xs={6}>
-              <TextField fullWidth name="manager" variant="outlined" label="Staff Manager" />
+            <SelectDropdown
+                menuItem={[
+                  {
+                    name:"first",
+                    value:"first"
+                  },
+                  {
+                    name:"second",
+                    value:"second"
+                  }
+                ]}
+                Title={'Manager'}
+                />
             </Grid>
             <Grid container justifyContent="space-around" item xs={12}>
             <MDBox display="flex" alignItems="center" ml={-1}>
@@ -158,7 +174,7 @@ async function postData(data) {
               color="info" 
               fullWidth
               >
-                Add User
+                Create User
               </MDButton>
             </Grid>
           </Grid>

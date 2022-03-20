@@ -11,15 +11,16 @@ export default function SelectDropdown(prop) {
     setAge(event.target.value);
   };
   return (
-      <FormControl variant="standard" sx={{ m: 1}}>
-        <InputLabel>Title</InputLabel>
+      <FormControl variant="standard" style={{ minWidth: "70px" }}>
+        <InputLabel>{prop.Title}</InputLabel>
         <Select
+        style={{ padding:"5px"}}
           value={age}
           onChange={handleChange}
-          label="Title"
         >
-           <MenuItem value="One">Dr</MenuItem>   
-           <MenuItem value="Two">Prof</MenuItem>  
+          {prop.menuItem.map(e => (
+            <MenuItem value={e.value}>{e.name}</MenuItem>   
+          ))}
         </Select>
       </FormControl>
   );

@@ -31,6 +31,9 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
+
+
+
 function Notifications() {
   const [successSB, setSuccessSB] = useState(false);
   const [infoSB, setInfoSB] = useState(false);
@@ -45,6 +48,8 @@ function Notifications() {
   const closeWarningSB = () => setWarningSB(false);
   const openErrorSB = () => setErrorSB(true);
   const closeErrorSB = () => setErrorSB(false);
+
+  
 
   const alertContent = (name) => (
     <MDTypography variant="body2" color="white">
@@ -149,7 +154,7 @@ function Notifications() {
             </Card>
           </Grid>
 
-          {/* <Grid item xs={12} lg={8}>
+           <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2} lineHeight={0}>
                 <MDTypography variant="h5">Notifications</MDTypography>
@@ -186,7 +191,7 @@ function Notifications() {
                 </Grid>
               </MDBox>
             </Card>
-  </Grid>*/}
+  </Grid>
         </Grid> 
       </MDBox>
       <Footer />
