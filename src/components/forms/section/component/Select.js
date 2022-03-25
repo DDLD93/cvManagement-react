@@ -1,27 +1,22 @@
 import * as React from 'react';
+import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function SelectDropdown(prop) {
-  const [age, setAge] = React.useState('');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+export default function BasicSelect(prop) {
   return (
-      <FormControl variant="standard" style={{ minWidth: "70px" }}>
-        <InputLabel>{prop.Title}</InputLabel>
+    <Box sx={{ minWidth: 80 }}>
+      <FormControl fullWidth>
+        <InputLabel>{prop.label}</InputLabel>
         <Select
-        style={{ padding:"5px"}}
-          value={age}
-          onChange={handleChange}
+          value={prop.cValue}
+          native={true}
+          onChange={prop.changes}
         >
-          {prop.menuItem.map(e => (
-            <MenuItem value={e.value}>{e.name}</MenuItem>   
-          ))}
+          {prop.list.map(li=>(<option value={li.value}>{li.name}</option>))}
         </Select>
       </FormControl>
+    </Box>
   );
 }

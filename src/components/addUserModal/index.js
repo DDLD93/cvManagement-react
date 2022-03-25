@@ -1,11 +1,11 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Checkbox, Grid, TextField } from "@mui/material";
+import { Checkbox, FormControl, Grid, RadioGroup, TextField } from "@mui/material";
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
-import SelectDropdown from "components/forms/section/component/Select";
+import BasicSelect from "components/forms/section/component/Select";
 
 const style = {
   modal: {
@@ -20,7 +20,7 @@ const style = {
     width: 400,
     bgcolor: "background.paper",
     border: "0px solid #red",
-    borderRadius:"7px",
+    borderRadius: "7px",
     boxShadow: 24,
     p: 4,
   },
@@ -30,7 +30,7 @@ const style = {
     zIndex: 10,
   },
   add: {
-        height: 40,
+    height: 40,
     width: 40,
     borderRadius: "50%",
   },
@@ -40,37 +40,42 @@ export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-const [selectStaff, setselectStaff] = useState(false) 
+  const [title, settitle] = useState(null);
+  const [manager, setmanager] = useState(null);
 
-async function postData(data) {
-  
-  console.log(JSON.stringify(data) )
-  const response = await fetch("http://localhost:5000/create", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data) 
-  });
-  return response.json()
-}
+  async function postData(data) {
+    console.log(JSON.stringify(data));
+    const response = await fetch("http://localhost:5000/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  }
 
   const addUser = (event) => {
     event.preventDefault();
     let data = new FormData(event.currentTarget);
-  data =  {
-      email: data.get('email'),
-      phone: data.get('phone'),
-      fullName: data.get('fullName'),
-      userRole: data.get('role'),
-      manager: data.get('manager'),
-    } 
-    postData(data).then(res=>console.log(res)).catch(err=>console.log(err))
-  }
+    data = {
+      email: data.get("email"),
+      phone: data.get("phone"),
+      fullName: `${title} ${data.get("fullName")}`,
+      userRole: data.get("role"),
+      manager,
+      sms: false,
+    };
+    postData(data)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div style={style.button}>
-      <MDButton  onClick={handleOpen} color="primary" >Add User</MDButton>
+      <MDButton onClick={handleOpen} color="primary">
+        Add User
+      </MDButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -78,26 +83,23 @@ async function postData(data) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style.modal} component="form" onSubmit={addUser} noValidate autoComplete="off">
-            <MDTypography variant="h4" sx={{mb:5}}>
+          <MDTypography variant="h4" sx={{ mb: 5 }}>
             Create User
-            </MDTypography>
+          </MDTypography>
           <Grid justifyContent="center" container spacing={2}>
-          <Grid item xs={3}>
-                <SelectDropdown
-                menuItem={[
-                  {
-                    name:"first",
-                    value:"first"
-                  },
-                  {
-                    name:"second",
-                    value:"second"
-                  }
+            <Grid item xs={3}>
+              <BasicSelect
+                label="Title"
+                value={title}
+                changes={(e) => settitle(e.target.value)}
+                list={[
+                  { name: null, value: null },
+                  { name: "prof", value: "prof" },
+                  { name: "Dr", value: "Dr" },
                 ]}
-                Title={'Title'}
-                />
+              />
             </Grid>
-          <Grid item xs={9}>
+            <Grid item xs={9}>
               <TextField
                 fullWidth
                 type="name"
@@ -125,55 +127,47 @@ async function postData(data) {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <TextField fullWidth name="role" variant="outlined" label="User Role" />
             </Grid>
-            <Grid item xs={6}>
-            <SelectDropdown
-                menuItem={[
-                  {
-                    name:"first",
-                    value:"first"
-                  },
-                  {
-                    name:"second",
-                    value:"second"
-                  }
+            <Grid item xs={8}>
+              <BasicSelect
+                label="Staff Manager"
+                value={manager}
+                changes={(e) => setmanager(e.target.value)}
+                list={[
+                  { name: null, value: null },
+                  { name: "Prof Namuda Bakano", value: "Prof Namuda Bakano" },
+                  { name: "Eng Talle Yar Auta", value: "Eng Talle Yar Auta" },
                 ]}
-                Title={'Manager'}
-                />
+              />
             </Grid>
             <Grid container justifyContent="space-around" item xs={12}>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox name="sms"/>
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Send SMS
-              </MDTypography>
-            </MDBox>
-            <MDBox display="flex" alignItems="center" ml={-1}>
-              <Checkbox  disabled />
-              <MDTypography
-                variant="button"
-                fontWeight="regular"
-                color="text"
-                sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
-              >
-                &nbsp;&nbsp;Send Email
-              </MDTypography>
-            </MDBox>
+              <MDBox display="flex" alignItems="center" ml={-1}>
+                <Checkbox />
+                <MDTypography
+                  variant="button"
+                  fontWeight="regular"
+                  color="text"
+                  sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+                >
+                  &nbsp;&nbsp;Send SMS
+                </MDTypography>
+              </MDBox>
+              <MDBox display="flex" alignItems="center" ml={-1}>
+                <Checkbox checked={true} />
+                <MDTypography
+                  variant="button"
+                  fontWeight="regular"
+                  color="text"
+                  sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
+                >
+                  &nbsp;&nbsp;Send Email
+                </MDTypography>
+              </MDBox>
             </Grid>
             <Grid item xs={12} mt={4} mb={1}>
-              <MDButton 
-              variant="gradient" 
-              type="submit"
-              color="info" 
-              fullWidth
-              >
+              <MDButton variant="gradient" type="submit" color="info" fullWidth>
                 Create User
               </MDButton>
             </Grid>

@@ -36,7 +36,7 @@ import theme from "assets/theme";
 // Material Dashboard 2 React Dark Mode themes
 
 // RTL plugins
-import rtlPlugin from "stylis-plugin-rtl";
+//import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
@@ -51,6 +51,7 @@ import brandWhite from "assets/images/buk-logo.png";
 import brandDark from "assets/images/buk-logo.png";
 import  {useContext } from "react";
 import { StateContext } from "./context/state";
+import MDSnackbar from "components/MDSnackbar";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -69,16 +70,30 @@ export default function App() {
   const { pathname } = useLocation();
   const { isLogin,isAdmin,user } = useContext(StateContext);
 
+  const renderSuccessSB = (
+    <MDSnackbar
+      color="success"
+      icon="check"
+      title="Material Dashboard"
+      content="Hello, world! This is a notification message"
+      dateTime="11 mins ago"
+      open={false}
+      onClose={true}
+      close={true}
+      bgWhite
+    />
+  );
+
 
   // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: "rtl",
-      stylisPlugins: [rtlPlugin],
-    });
+  // useMemo(() => {
+  //   const cacheRtl = createCache({
+  //     key: "rtl",
+  //     stylisPlugins: [rtlPlugin],
+  //   });
 
-    setRtlCache(cacheRtl);
-  }, []);
+  //   setRtlCache(cacheRtl);
+  // }, []);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -161,6 +176,7 @@ let paths = user?user.userRole =="admin"?routes:staffRoutes:publicRoutes
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
+        {renderSuccessSB}
           {/* <Configurator />
           {configsButton} */}
         </>
