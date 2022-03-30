@@ -11,6 +11,7 @@ export default function BasicSelect(prop) {
         <InputLabel>{prop.label}</InputLabel>
         <Select
           value={prop.cValue}
+          disabled={prop.isDisabled}
           native={true}
           onChange={prop.changes}
         >

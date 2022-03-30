@@ -1,74 +1,81 @@
-import {React,useEffect,useState,useContext} from "react";
+import { React, useEffect, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container,Button } from "@mui/material";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { Container, Button } from "@mui/material";
 import TextArea from "./component/TextArea";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'; 
-import {StateContext} from "../../../context/state"
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { StateContext } from "../../../context/state";
 
 function PersonalInfo() {
-  const [firstName, setfirstName] = useState("")
-  const [lastName, setlastName] = useState("")
-  const [surName, setsurName] = useState("")
-  const [email, setemail] = useState("")
-  const [phone, setphone] = useState("")
-  const [gender, setgender] = useState("")
-  const [address, setaddress] = useState("")
-  const [personalStatement, setpersonalStatement] = useState("")
-  const { buttonState,setFormPost,user } = useContext(StateContext);
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [surName, setsurName] = useState("");
+  const [email, setemail] = useState("");
+  const [phone, setphone] = useState("");
+  const [gender, setgender] = useState("");
+  const [address, setaddress] = useState("");
+  const [personalStatement, setpersonalStatement] = useState("");
+  const { buttonState, setFormPost,formPost, user } = useContext(StateContext);
 
+  // let formData = new FormData();
+  // formData.append("firstName", firstName);
+  // formData.append("lastName", lastName);
+  // formData.append("surName", surName);
+  // formData.append("email", email);
+  // formData.append("PrimaryEmail", user.email);
+  // formData.append("phone", phone);
+  // formData.append("address", address);
+  // formData.append("personalStatement", personalStatement);
 
+  const readyState = () => {
+    setFormPost({
+      id:user.email,
+      key:"personalInfo",
+      value:JSON.stringify({
+        firstName,
+        lastName,
+        surName,
+        email,
+        phone,
+        address,
+        personalStatement,
+      })
+    });
+    buttonState(false)
+  };
 
-  const genderOption = [
-    {
-      value: 'male',
-      label: 'Male',
-    },
-    {
-      value: 'female',
-      label: 'Female',
+  useEffect(() => {
+    console.log(
+      firstName,
+      lastName,
+      surName,
+      email,
+      phone,
+      address,
+      personalStatement,
+    )
+    if (
+      firstName == "" ||
+      lastName == "" ||
+      surName == "" ||
+      email == "" ||
+      phone == "" ||
+      address == "" ||
+      personalStatement == ""
+    ) {
+      buttonState(true);
+      setFormPost(undefined);
+    } else {
+      readyState()
+      
     }
-  ]
+  }, [firstName, lastName, surName, email, phone, gender, address, personalStatement]);
 
-  
- useEffect(() => {
-
-
-if (firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||address==""||personalStatement=="") {
-  
-  buttonState(false)
-  setFormPost(undefined)
-} else { 
-  let formData = new FormData();
-  formData.append('firstName', firstName);
-  formData.append('lastName', lastName);
-  formData.append('surName', surName);
-  formData.append('email', email);
-  formData.append('phone', phone);
-  formData.append('gender', gender);
-  formData.append('address', address);
-  formData.append('personalStatement', personalStatement);
-  buttonState(true)
-  setFormPost(formData)
-}
-
-
-
-
-
-}, [firstName,lastName,surName,email,phone,gender,address,personalStatement])
- 
-
-  
-    return (
+  return (
     <Container fixed>
       <Box
         component="form"
@@ -81,15 +88,29 @@ if (firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||
         <Typography color="blue" variant="caption" sx={{ display: "block" }}>
           Bio data
         </Typography>
-        <TextField onChange={(e) => setfirstName(e.target.value)} id="firstName" label="First Name" variant="outlined" />
-        <TextField onChange={(e) => setsurName(e.target.value)} id="surName" label="Surname" variant="outlined" />
-        <TextField onChange={(e) => setlastName(e.target.value)} id="lastName" label="Last Name" variant="outlined" />
-       
+        <TextField
+          onChange={(e) => setfirstName(e.target.value)}
+          id="firstName"
+          label="First Name"
+          variant="outlined"
+        />
+        <TextField
+          onChange={(e) => setsurName(e.target.value)}
+          id="surName"
+          label="Surname"
+          variant="outlined"
+        />
+        <TextField
+          onChange={(e) => setlastName(e.target.value)}
+          id="lastName"
+          label="Last Name"
+          variant="outlined"
+        />
       </Box>
       <Box
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "25ch", mt:1 },
+          "& > :not(style)": { m: 1, width: "25ch", mt: 1 },
         }}
         noValidate
         autoComplete="off"
@@ -97,18 +118,25 @@ if (firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||
         <Typography color="blue" variant="caption" sx={{ display: "block", mt: 50 }}>
           Contact information
         </Typography>
-        <TextField onChange={(e) => setemail(e.target.value)} type='email' id="Email" label="Email Address" variant="outlined" />
-        <TextField onChange={(e) => setphone(e.target.value)} type='number' id="Phone" label="Phone Number" variant="outlined" />
-        <TextArea
-        change={(e) => setaddress(e.target.value)}
-        label={"Address"}
+        <TextField
+          onChange={(e) => setemail(e.target.value)}
+          type="email"
+          id="Email"
+          label="Email Address"
+          variant="outlined"
         />
+        <TextField
+          onChange={(e) => setphone(e.target.value)}
+          type="number"
+          id="Phone"
+          label="Phone Number"
+          variant="outlined"
+        />
+        <TextArea change={(e) => setaddress(e.target.value)} label={"Address"} />
       </Box>
       <Box
         component="form"
-        sx={{height:30,
-          "& > :not(style)": { m: 1, width: "25ch", mt:1,  },
-        }}
+        sx={{ height: 30, "& > :not(style)": { m: 1, width: "25ch", mt: 1 } }}
         noValidate
         autoComplete="off"
       >
@@ -116,26 +144,24 @@ if (firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||
           Personal Statement
         </Typography>
         <TextArea
-        label={"Personal Statement"}
-        change={(e) => setpersonalStatement(e.target.value)}
-        sx={{height:30}} />
+          label={"Personal Statement"}
+          change={(e) => setpersonalStatement(e.target.value)}
+          sx={{ height: 30 }}
+        />
         <Button
-        sx={{maxWidth:147,color:"blue"}}
-        color="secondary"
-      endIcon={<CloudUploadIcon/>}  variant="outlined"
-  component="label"
->
-  Upload CV
-  <input
-    type="file"
-    hidden
-  />
-</Button>
+          sx={{ maxWidth: 147, color: "lightBlue" }}
+          color="secondary"
+          endIcon={<CloudUploadIcon />}
+          variant="outlined"
+          component="label"
+        >
+          Upload CV
+          <input id="file" type="file" hidden />
+        </Button>
       </Box>
     </Container>
   );
 }
- 
 
 // const Input = (props) => {
 //   const classes = useStyles();
@@ -173,9 +199,6 @@ if (firstName==""||lastName==""||surName==""||email==""||phone==""||gender==""||
 //           {...props.custom}
 //       />
 //   )
-// } 
-
+// }
 
 export default PersonalInfo;
-
-

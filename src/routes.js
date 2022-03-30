@@ -153,6 +153,73 @@ const staffRoutes = [
   // },
 ];
 
+const staffAdmin = [
+  // {
+  //   type: "collapse",
+  //   name: "Dashboard",
+  //   key: "dashboard",
+  //   icon: <Icon fontSize="small">dashboard</Icon>,
+  //   route: "/",
+  //   component: <Dashboard />,
+  // },
+  {
+    type: "collapse",
+    name: "Users",
+    key: "users",
+    icon: <Icon fontSize="small">group</Icon>,
+    route: "/",
+    component: <Tables />,
+  },
+  {
+    type: "collapse",
+    name: "CV Documents",
+    key: "cv-document",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/cv-document",
+    component: <Document />,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "RTL",
+  //   key: "rtl",
+  //   icon: <Icon fontSize="small">format_textdirection_r_to_l</Icon>,
+  //   route: "/rtl",
+  //   component: <RTL />,
+  // },
+  {
+    type: "collapse",
+    name: "Activity Logs",
+    key: "notifications",
+    icon: <Icon fontSize="small">notifications</Icon>,
+    route: "/notifications",
+    component: <Notifications />,
+  },
+  {
+    type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile",
+    component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "Log Out",
+    key: "sign-in",
+    icon: <Icon fontSize="small">logout</Icon>,
+    route: "/login",
+    component: <SignIn />,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/authentication/sign-up",
+  //   component: <SignUp />,
+  // },
+];
+
 const publicRoutes = [
 
   {
@@ -165,4 +232,4 @@ const publicRoutes = [
   }
 ];
 
-export  {routes,staffRoutes,publicRoutes};
+export  {routes,staffRoutes,publicRoutes,staffAdmin};

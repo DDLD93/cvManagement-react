@@ -41,7 +41,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
 // Material Dashboard 2 React routes
-import {routes,staffRoutes,publicRoutes} from "routes";
+import {routes,staffRoutes,publicRoutes,staffAdmin} from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
@@ -79,7 +79,7 @@ export default function App() {
       dateTime="11 mins ago"
       open={false}
       onClose={true}
-      close={true}
+      close={()=>console.log("close")}
       bgWhite
     />
   );
@@ -110,7 +110,9 @@ export default function App() {
       setOnMouseEnter(false);
     }
   };
-let paths = user?user.userRole =="admin"?routes:staffRoutes:publicRoutes
+
+let paths = user?user.userRole =="admin"?routes:user.userRole =="staffAdmin"?staffAdmin:staffRoutes:publicRoutes
+console.log(paths)
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
@@ -176,7 +178,7 @@ let paths = user?user.userRole =="admin"?routes:staffRoutes:publicRoutes
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
-        {renderSuccessSB}
+
           {/* <Configurator />
           {configsButton} */}
         </>

@@ -29,7 +29,7 @@ export default function StepperHorizotal() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeStepTitle, setActiveStepTitle] = React.useState("Personal Info");
   const [completed, setCompleted] = React.useState({});
-  const { disable, loading, loadingState, postData } = useContext(StateContext);
+  const { disable, loading, loadingState, postData,postForm,notification} = useContext(StateContext);
 
   const totalSteps = () => {
     return steps.length;
@@ -66,49 +66,60 @@ export default function StepperHorizotal() {
 
   const handleComplete = () => {
     const newCompleted = completed;
-    newCompleted[activeStep] = true;
-    setCompleted(newCompleted);
-    handleNext();
+    let Next = ()=>{
+      newCompleted[activeStep] = true;
+      setCompleted(newCompleted);
+      handleNext();
+    }
     
 
     switch (activeStep) {
       case 0:
         postData("personal-info").then(()=>{
-          
+          Next();  
           setActiveStepTitle("Education");
-        }).catch(()=>{
+        }).catch((err)=>{
+          notification("error",err.message)
           loadingState(false)
           
         })
         break;
       case 1:
         postData("education-history").then(()=>{
+          Next();
           setActiveStepTitle("Work History");
-        }).catch(()=>{
+        }).catch((err)=>{
+          notification("error",err.message)
           loadingState(false)
           
         })
         break;
       case 2:
         postData("work-history").then(()=>{
+          Next();
           setActiveStepTitle("Professioal Membership");
-        }).catch(()=>{
+        }).catch((err)=>{
+          notification("error",err.message)
           loadingState(false)
           
         })
         break;
       case 3:
         postData("membership-history").then(()=>{
+          Next();
           setActiveStepTitle("Skills");
-        }).catch(()=>{
+        }).catch((err)=>{
+          notification("error",err.message)
           loadingState(false)
           
         })
         break;
       case 4:
         postData("skills").then(()=>{
+          Next();
           setActiveStepTitle("Additional Information");
-        }).catch(()=>{
+        }).catch((err)=>{
+          notification("error",err.message)
           loadingState(false)
           
         })
@@ -116,19 +127,12 @@ export default function StepperHorizotal() {
       default:
         break;
     }
-
-    // activeStep == 0 && setActiveStepTitle("Education");
-    // activeStep == 1 && setActiveStepTitle("Work History");
-    // activeStep == 2 && setActiveStepTitle("Professioal Membership");
-    // activeStep == 3 && setActiveStepTitle("Skills");
-    // activeStep == 4 && setActiveStepTitle("Additional Information");
   };
 
   const handleReset = () => {
     setActiveStep(0);
     setCompleted({});
   };
-
   return (
     <Box sx={{ width: "100%" }}>
       <Stepper nonLinear activeStep={activeStep}>

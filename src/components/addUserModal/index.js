@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Checkbox, FormControl, Grid, RadioGroup, TextField } from "@mui/material";
@@ -6,7 +6,8 @@ import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 import BasicSelect from "components/forms/section/component/Select";
-
+import { StateContext } from "../../context/state"
+import { SignalCellularNull } from "@mui/icons-material";
 const style = {
   modal: {
     position: "absolute",
@@ -40,8 +41,10 @@ export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [role, setrole] = useState(SignalCellularNull)
   const [title, settitle] = useState(null);
   const [manager, setmanager] = useState(null);
+  const {notification} = useContext(StateContext);
 
   async function postData(data) {
     console.log(JSON.stringify(data));
@@ -56,19 +59,22 @@ export default function BasicModal() {
   }
 
   const addUser = (event) => {
+   
     event.preventDefault();
     let data = new FormData(event.currentTarget);
     data = {
       email: data.get("email"),
       phone: data.get("phone"),
       fullName: `${title} ${data.get("fullName")}`,
-      userRole: data.get("role"),
+      userRole: role,
       manager,
       sms: false,
     };
     postData(data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((response) => response.status == "Success"?
+      notification("success",response.message):
+      notification("error",response.message))
+      .catch((err) => notification("error",err.message));
   };
 
   return (
@@ -94,7 +100,7 @@ export default function BasicModal() {
                 changes={(e) => settitle(e.target.value)}
                 list={[
                   { name: null, value: null },
-                  { name: "prof", value: "prof" },
+                  { name: "Professor", value: "professor"},
                   { name: "Dr", value: "Dr" },
                 ]}
               />
@@ -128,11 +134,20 @@ export default function BasicModal() {
               />
             </Grid>
             <Grid item xs={4}>
-              <TextField fullWidth name="role" variant="outlined" label="User Role" />
+            <BasicSelect
+                label="Account Type"
+                value={role}
+                changes={(e) => setrole(e.target.value)}
+                list={[
+                  { name: "Staff", value: "staff" },
+                  { name: "Staff Admin", value: "staffAdmin" },
+                ]}
+              />
             </Grid>
             <Grid item xs={8}>
               <BasicSelect
                 label="Staff Manager"
+                isDisabled={role=="staff"?false:true}
                 value={manager}
                 changes={(e) => setmanager(e.target.value)}
                 list={[

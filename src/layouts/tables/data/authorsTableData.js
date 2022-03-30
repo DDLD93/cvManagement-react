@@ -26,6 +26,10 @@ import React, { useEffect, useState, useContext } from "react";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import { Box } from "@mui/system";
+import { Icon } from "@mui/material";
+import {AlertDialog} from "components/dialouge";
+import { ScrollDialog } from "components/dialouge";
 
 export default function data() {
 const [rows, setrows] = useState([])
@@ -33,8 +37,8 @@ function fetchUsers() {
   fetch("http://localhost:5000/getusers")
 .then(res =>res.json())
 .then(result=>{
-  console.log(result.payload)
   result.payload.map(user =>{
+      console.log(user)
    
     let tempRow =  {
       author: <Author image={team3} name={user.fullName} email={user.email} />,
@@ -46,13 +50,26 @@ function fetchUsers() {
       ),
       employed: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          24/12/08
+          {user.createdAt.split("T")[0]}
         </MDTypography>
       ),
       action: (
-        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          Edit
-        </MDTypography>
+        <Box component="div" sx={{fontSize:"20px",display:"flex",gap:1 }}>
+          <ScrollDialog
+          email={user.email}
+          />
+          <AlertDialog
+         icon={"block"}
+         text={"Are are about to suspend this user ?"}
+         id={user.id}
+         />
+          <AlertDialog
+          icon={"delete"}
+          text={"Are you sure you want to Parmanently delete this user ?"}
+          id={user.id}
+          />
+      </Box>
+      
       ),
     }
     setrows(prev =>[...prev,tempRow])
@@ -131,7 +148,7 @@ function fetchUsers() {
     //   //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
     //   //       11/01/19
     //   //     </MDTypography>
-    //   //   ),
+    //   //   ),;
     //   //   action: (
     //   //     <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
     //   //       Edit

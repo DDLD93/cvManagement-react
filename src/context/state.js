@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect } from "react";
-import { stringify } from "stylis";
+import { useSnackbar } from 'notistack';
 
 export const StateContext = createContext();
 
 export default function StateContextProvider({ children }) {
   const [user, setuser] = useState(localStorage.getItem("user")|| null)
+  const { enqueueSnackbar } = useSnackbar();
 
   const [disable, setDisable] = useState(true);
   const buttonState = (e) => setDisable(e);
@@ -21,8 +22,24 @@ export default function StateContextProvider({ children }) {
   const [isAdmin, setisAdmin] = useState(true);
   const changeIsAdmin = (e) => setisAdmin(e);
 
-  async function postData(url = "") {
+  const notification = (type="info",message)=>{
+    enqueueSnackbar(message, {variant:type,
+      anchorOrigin:{vertical: "top", horizontal: "right" }});
+
+  }
+  async function postForm(url = "") {
     console.log(formPostData)
+    setLoading(true);
+    const response = await fetch(`http://localhost:5000/forms/create`, {
+      method: "POST",
+      body:formPostData
+    });
+    setLoading(false);
+    return response.json();
+  }
+
+  async function postData(url = "") {
+    console.log(url)
     setLoading(true);
     const response = await fetch(`http://localhost:5000/forms/modify`, {
       method: "POST",
@@ -51,10 +68,14 @@ export default function StateContextProvider({ children }) {
           localStorage.setItem("token", "token")
           setuser(JSON.parse(localStorage.getItem("user")))
           setLoading(false)
+          notification("success",response.message)
+          return
         } 
+        notification("error",response.message)
         setLoading(false)
       }).catch((err)=>{
         console.log(err)
+        notification("error",response.message)
         setLoading(false)
       });
   };
@@ -73,6 +94,8 @@ export default function StateContextProvider({ children }) {
     formPostData,
     isLogin,
     isAdmin,
+    postForm,
+    notification,
     changeIsLogin,
     changeIsAdmin,
     buttonState,
