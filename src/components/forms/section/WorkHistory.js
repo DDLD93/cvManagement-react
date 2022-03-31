@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Icon, TextField } from "@mui/material";
+import { Button, Container, Fab, Grid, Icon, TextField } from "@mui/material";
 // date-fns
 import uuid from 'react-uuid'
 import RenderListtwo from "./component/ListTwo";
@@ -117,7 +117,9 @@ var key = uuid()
           label="Date Completed"
           variant="outlined"
         />
-        <Button disabled={disabled} onClick={add} variant="contained"><AddIcon/></Button>
+        <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
+         <AddIcon />
+          </Fab>
       </Grid>
     </Container>
   );

@@ -149,11 +149,11 @@ function PersonalInfo() {
           sx={{ height: 30 }}
         />
         <Button
-          sx={{ maxWidth: 147, color: "lightBlue" }}
-          color="secondary"
+          sx={{ maxWidth: 147, color: "white" }}
+          color="primary"
           endIcon={<CloudUploadIcon />}
-          variant="outlined"
           component="label"
+          variant="contained"
         >
           Upload CV
           <input id="file" type="file" hidden />

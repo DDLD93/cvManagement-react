@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Icon, TextField, Typography } from "@mui/material";
+import { Button, Container, Fab, Grid, Icon, TextField, Typography } from "@mui/material";
 // date-fns
 import uuid from "react-uuid";
 import RenderList from "./component/Lists";
@@ -129,9 +129,9 @@ function Education() {
         {/* <AddButton
         disabled={disabled} onClick={add}
         /> */}
-        <Button disabled={disabled} onClick={add} variant="contained">
-          <AddIcon />
-        </Button>
+        <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
+         <AddIcon />
+          </Fab>
       </Grid>
     </Container>
   );

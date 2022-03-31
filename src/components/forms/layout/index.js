@@ -14,6 +14,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Info from "../section/AdditionalInfo";
 import { StateContext } from "../../../context/state";
+import Completed from "../section/Completed";
 
 const steps = [
   "Personal Info",
@@ -21,7 +22,6 @@ const steps = [
   "Work History",
   "Professioal Membership",
   "Skills",
-  "Referees",
   "Additional Information",
 ];
 
@@ -29,7 +29,7 @@ export default function StepperHorizotal() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeStepTitle, setActiveStepTitle] = React.useState("Personal Info");
   const [completed, setCompleted] = React.useState({});
-  const { disable, loading, loadingState, postData,postForm,notification} = useContext(StateContext);
+  const { disable, loading, loadingState, postData, postForm, notification } = useContext(StateContext);
 
   const totalSteps = () => {
     return steps.length;
@@ -51,8 +51,8 @@ export default function StepperHorizotal() {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -66,62 +66,62 @@ export default function StepperHorizotal() {
 
   const handleComplete = () => {
     const newCompleted = completed;
-    let Next = ()=>{
+    let Next = () => {
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
       handleNext();
     }
-    
+
 
     switch (activeStep) {
       case 0:
-        postData("personal-info").then(()=>{
-          Next();  
+        postData("personal-info").then(() => {
+          Next();
           setActiveStepTitle("Education");
-        }).catch((err)=>{
-          notification("error",err.message)
+        }).catch((err) => {
+          notification("error", err.message)
           loadingState(false)
-          
+
         })
         break;
       case 1:
-        postData("education-history").then(()=>{
+        postData("education-history").then(() => {
           Next();
           setActiveStepTitle("Work History");
-        }).catch((err)=>{
-          notification("error",err.message)
+        }).catch((err) => {
+          notification("error", err.message)
           loadingState(false)
-          
+
         })
         break;
       case 2:
-        postData("work-history").then(()=>{
+        postData("work-history").then(() => {
           Next();
           setActiveStepTitle("Professioal Membership");
-        }).catch((err)=>{
-          notification("error",err.message)
+        }).catch((err) => {
+          notification("error", err.message)
           loadingState(false)
-          
+
         })
         break;
       case 3:
-        postData("membership-history").then(()=>{
+        postData("membership-history").then(() => {
           Next();
           setActiveStepTitle("Skills");
-        }).catch((err)=>{
-          notification("error",err.message)
+        }).catch((err) => {
+          notification("error", err.message)
           loadingState(false)
-          
+
         })
         break;
       case 4:
-        postData("skills").then(()=>{
+        postData("skills").then(() => {
           Next();
           setActiveStepTitle("Additional Information");
-        }).catch((err)=>{
-          notification("error",err.message)
+        }).catch((err) => {
+          notification("error", err.message)
           loadingState(false)
-          
+
         })
         break;
       default:
@@ -185,7 +185,7 @@ export default function StepperHorizotal() {
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" sx={{ display: "inline-block" }}>
-                    Step {} already completed
+                    Step { } already completed
                   </Typography>
                 ) : (
                   <LoadingButton

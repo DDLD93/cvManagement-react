@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Icon, TextField } from "@mui/material";
+import { Button, Container, Fab, Grid, Icon, TextField } from "@mui/material";
 // date-fns
 import React, { useEffect, useState, useContext, useMemo, useLayoutEffect } from "react";
 import { StateContext } from "../../../context/state";
@@ -109,9 +109,9 @@ function Membership() {
           label="Date Started"
           variant="outlined"
         />
-        <Button disabled={disabled} onClick={add} variant="contained">
-          <AddIcon />
-        </Button>
+       <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
+         <AddIcon />
+      </Fab>
       </Grid>
     </Container>
   );

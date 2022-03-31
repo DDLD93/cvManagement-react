@@ -6,11 +6,16 @@ import "./section.css";
 import React, { useEffect, useState, useContext } from "react";
 import { StateContext } from "../../../context/state";
 import TextArea from "./component/TextArea";
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import BasicSelect from "./component/Select";
 
 
 function Info() {
   const [info, setinfo] = React.useState("");
   const [lists, setlists] = React.useState([])
+  const [value, setvalue] = useState(false)
   const [disabled, setdisabled] = useState(true)
   const { buttonState,setFormPost,user } = useContext(StateContext);
 
@@ -46,16 +51,19 @@ var key = uuid()
   };
 
  useEffect(() => {
+   console.log(value)
    console.log(info)
    if (info=="") {
-     
+     setdisabled(true)
     buttonState(true)
    }else{
     buttonState(false)
+    setdisabled(false)
+
     readyState()
    
    }
- }, [info])
+ }, [info],value)
  
   
   return (
@@ -71,15 +79,44 @@ var key = uuid()
           )
         })}
       </Grid>
-      <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
-        {/* <TextField sx={{idth:900}} onChange={(e)=> setinfo(e.target.value)} id="organisation" label="Additional Information" variant="outlined" /> */}
-        <TextArea
+      <Grid container alignItems="center" sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
+        <Grid xs={2} item >
+      <BasicSelect
+               
+                label="Category"
+                isDisabled={false}
+                cValue={value}
+                changes={(e) => setvalue(e.target.value)}
+                list={[
+                  { name: null, value: null },
+                  { name: "RESEARCH", value: "RESEARCH" },
+                  { name: "TEACHING", value: "TEACHING" },
+                  { name: "PUBLICATIONS/PRESENTATIONS", value: "PUBLICATIONS" },
+                  { name: "CONFERENCES/COURSES", value: "COURSES" },
+                  { name: "FUNDING/ACADEMIC AWARDS", value: "FUNDING" },
+                ]}
+              />
+
+        </Grid>
+        <Grid xs={4} item >
+        <TextArea  
         label={"Additional Information"}
         change={(e)=> setinfo(e.target.value)}
         maxRows={5}
-        style={{width:1000}}
-
+        style={{width:100}}
         />
+        </Grid>
+        <Grid xs={1} item >
+          <Fab size="small" color="blue" component="label" >
+         <CloudUploadIcon />
+         <input id="file" type="file" hidden />
+          </Fab>
+        </Grid>
+        <Grid xs={1} item >
+          <Fab size="small" color="secondary" aria-label="add" onClick={add} disabled={disabled}  component="label" >
+         <AddIcon />
+          </Fab>
+        </Grid>
       </Grid>
     </Container>
   );

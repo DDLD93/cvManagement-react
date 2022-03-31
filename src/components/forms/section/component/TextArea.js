@@ -11,6 +11,7 @@ function TextArea(prop) {
         id={prop.id}
         label={prop.label}
         multiline
+        fullWidth
         maxRows={prop.maxRows}
         value={prop.value}
         onChange={prop.change}

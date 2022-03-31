@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Icon, TextField ,Typography  } from "@mui/material";
+import { Button, Container, Fab, Grid, Icon, TextField ,Typography  } from "@mui/material";
 // date-fns
 import uuid from 'react-uuid'
 import SkillList from "./component/skillList";
@@ -75,7 +75,9 @@ skills, time-management, communication skills and project management skills
         </Typography>
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
         <TextField onChange={(e)=> setskill(e.target.value)} id="organisation" label="Skill" variant="outlined" />
-        <Button disabled={disabled} onClick={add} variant="contained"><AddIcon/></Button>
+        <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
+         <AddIcon />
+          </Fab>
       </Grid>
     </Container>
   );
