@@ -59,29 +59,6 @@ function Membership() {
 
   return (
     <Container>
-      <Grid
-        sx={{
-          p: 1.2,
-          display: "flex",
-          gap: 2,
-          maxWidth: 650,
-          flexWrap: "wrap",
-          alignItems: "center",
-          background: color,
-        }}
-      >
-        {lists.map((e) => {
-          return (
-            <RenderList
-              id={e.id}
-              delete={deleteEntry}
-              orgnisation={e.organisation}
-              title={e.title}
-              date={e.date}
-            />
-          );
-        })}
-      </Grid>
       <Typography color="blue" variant="caption" sx={{ display: "block" }}>
         List any memberships you may have relevant to your research or other life activities
       </Typography>
@@ -112,6 +89,29 @@ function Membership() {
        <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
          <AddIcon />
       </Fab>
+      </Grid>
+      <Grid
+        sx={{
+          p: 1.2,
+          display: "flex",
+          gap: 2,
+          maxWidth: 650,
+          flexWrap: "wrap",
+          alignItems: "center",
+          background: color,
+        }}
+      >
+        {lists.map((e) => {
+          return (
+            <RenderList
+              id={e.id}
+              delete={deleteEntry}
+              orgnisation={e.organisation}
+              title={e.title}
+              date={e.date}
+            />
+          );
+        })}
       </Grid>
     </Container>
   );

@@ -112,7 +112,6 @@ export default function App() {
   };
 
 let paths = user?user.userRole =="admin"?routes:user.userRole =="staffAdmin"?staffAdmin:staffRoutes:publicRoutes
-console.log(paths)
 
   // Change the openConfigurator state
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);

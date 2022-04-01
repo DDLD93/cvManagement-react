@@ -29,7 +29,7 @@ export default function StepperHorizotal() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeStepTitle, setActiveStepTitle] = React.useState("Personal Info");
   const [completed, setCompleted] = React.useState({});
-  const { disable, loading, loadingState, postData, postForm, notification } = useContext(StateContext);
+  const { disable, loading, loadingState, postData, user, notification } = useContext(StateContext);
 
   const totalSteps = () => {
     return steps.length;
@@ -124,6 +124,16 @@ export default function StepperHorizotal() {
 
         })
         break;
+        case 5:
+        postData("Additional Information").then(() => {
+          Next();
+          setActiveStepTitle("submitted");
+        }).catch((err) => {
+          notification("error", err.message)
+          loadingState(false)
+
+        })
+        break;
       default:
         break;
     }
@@ -135,6 +145,8 @@ export default function StepperHorizotal() {
   };
   return (
     <Box sx={{ width: "100%" }}>
+      {activeStepTitle == "submitted" || user.additionalInfo =='' ? <Completed/>:
+      <>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -162,12 +174,16 @@ export default function StepperHorizotal() {
             {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
             <h3 style={{ marginTop: "10px" }}>{activeStepTitle}</h3>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2, minHeight: 300 }}>
+
+            
               {activeStepTitle == "Personal Info" && <PersanalInfo />}
               {activeStepTitle == "Education" && <Education />}
               {activeStepTitle == "Work History" && <WorkHistory />}
               {activeStepTitle == "Professioal Membership" && <Membership />}
               {activeStepTitle == "Skills" && <Skills />}
               {activeStepTitle == "Additional Information" && <Info />}
+              
+
             </Box>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 7, pb: 7, pr: 7 }}>
               {/* <Button
@@ -203,6 +219,9 @@ export default function StepperHorizotal() {
           </React.Fragment>
         )}
       </div>
+      </>
+
+}
     </Box>
   );
 }

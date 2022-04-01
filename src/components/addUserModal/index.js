@@ -44,7 +44,7 @@ export default function BasicModal() {
   const [role, setrole] = useState(SignalCellularNull)
   const [title, settitle] = useState(null);
   const [manager, setmanager] = useState(null);
-  const {notification} = useContext(StateContext);
+  const {notification,loadingState} = useContext(StateContext);
 
   async function postData(data) {
     console.log(JSON.stringify(data));
@@ -59,7 +59,6 @@ export default function BasicModal() {
   }
 
   const addUser = (event) => {
-   
     event.preventDefault();
     let data = new FormData(event.currentTarget);
     data = {
@@ -70,11 +69,22 @@ export default function BasicModal() {
       manager,
       sms: false,
     };
+    loadingState(true)
     postData(data)
-      .then((response) => response.status == "Success"?
-      notification("success",response.message):
-      notification("error",response.message))
-      .catch((err) => notification("error",err.message));
+      .then((response) => {
+        if (response.status == "Success") {
+          notification("success",response.message)
+          loadingState(false)
+          handleClose()
+          return 
+        }
+        loadingState(false)
+         notification("error",response.message);
+    })
+      .catch((err) => {
+        notification("error",err.message)
+        loadingState(false)
+      });
   };
 
   return (

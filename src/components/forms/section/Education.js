@@ -62,30 +62,6 @@ function Education() {
 
   return (
     <Container>
-      <Grid
-        sx={{
-          p: 1.2,
-          display: "flex",
-          gap: 2,
-          maxWidth: 650,
-          flexWrap: "wrap",
-          alignItems: "center",
-          background: color,
-        }}
-      >
-        {lists.map((e) => {
-          return (
-            <RenderListThree
-              id={e.id}
-              delete={deleteEntry}
-              institution={e.institute}
-              qualification={e.qualification}
-              date={e.date}
-              dateTwo={e.dateTwo}
-            />
-          );
-        })}
-      </Grid>
       <Typography color="blue" variant="caption" sx={{ display: "block" }}>
         In reverse chronological order, add the institutions where you studied, when you studied and
         outcomes.
@@ -132,6 +108,31 @@ function Education() {
         <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
          <AddIcon />
           </Fab>
+      </Grid>
+      <Grid
+        sx={{
+          mt:5,
+          p:1.2,
+          display: "flex",
+          gap: 2,
+          maxWidth: 650,
+          flexWrap: "wrap",
+          alignItems: "center",
+          background: color,
+        }}
+      >
+        {lists.map((e) => {
+          return (
+            <RenderListThree
+              id={e.id}
+              delete={deleteEntry}
+              institution={e.institute}
+              qualification={e.qualification}
+              date={e.date}
+              dateTwo={e.dateTwo}
+            />
+          );
+        })}
       </Grid>
     </Container>
   );

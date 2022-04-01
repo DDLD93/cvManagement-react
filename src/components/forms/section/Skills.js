@@ -58,6 +58,16 @@ var key = uuid()
   
   return (
     <Container>
+      <Typography color="blue" variant="caption" sx={{ display: "block"}}>
+      Use this section to write about your computational skills, administrative skills, team-working
+skills, time-management, communication skills and project management skills
+        </Typography>
+      <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
+        <TextField onChange={(e)=> setskill(e.target.value)} id="organisation" label="Skill" variant="outlined" />
+        <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
+         <AddIcon />
+          </Fab>
+      </Grid>
       <Grid sx={{ p:1.2, display: "flex", gap: 2, flexWrap: "wrap", alignItems:"center", background:color }}>
         {lists.map((e)=>{
           return(
@@ -68,16 +78,6 @@ var key = uuid()
             />
           )
         })}
-      </Grid>
-      <Typography color="blue" variant="caption" sx={{ display: "block"}}>
-      Use this section to write about your computational skills, administrative skills, team-working
-skills, time-management, communication skills and project management skills
-        </Typography>
-      <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
-        <TextField onChange={(e)=> setskill(e.target.value)} id="organisation" label="Skill" variant="outlined" />
-        <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
-         <AddIcon />
-          </Fab>
       </Grid>
     </Container>
   );

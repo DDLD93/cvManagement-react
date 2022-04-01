@@ -71,21 +71,6 @@ var key = uuid()
   
   return (
     <Container>
-      <Grid sx={{ p:1.2, display: "flex", gap: 2, maxWidth:650, flexWrap: "wrap", alignItems:"center", background:color }}>
-        {lists.map((e)=>{
-          return(
-            <RenderListtwo
-            id={e.id}
-            delete={deleteEntry}
-            organisation={e.organisation}
-            title={e.title}
-            date={e.date}
-            dateTwo={e.dateTwo}
-
-            />
-          )
-        })}
-      </Grid>
       <Typography color="blue" variant="caption" sx={{ display: "block"}}>
       Add in reverse chronological order, job title, organisation and dates
         </Typography>
@@ -120,6 +105,21 @@ var key = uuid()
         <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
          <AddIcon />
           </Fab>
+      </Grid>
+      <Grid sx={{ mt:5, display: "flex", gap: 2, maxWidth:650, flexWrap: "wrap", alignItems:"center", background:color }}>
+        {lists.map((e)=>{
+          return(
+            <RenderListtwo
+            id={e.id}
+            delete={deleteEntry}
+            organisation={e.organisation}
+            title={e.title}
+            date={e.date}
+            dateTwo={e.dateTwo}
+
+            />
+          )
+        })}
       </Grid>
     </Container>
   );

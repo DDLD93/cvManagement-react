@@ -78,6 +78,7 @@ export function ScrollDialog(prop) {
   const [memberShip, setmemberShip] = useState([]);
   const [skills, setskills] = useState([]);
   const [persoanlInfo, setpersoanlInfo] = useState([])
+  const [AddInfo, setAddInfo] = useState([])
 
   var [form, setForm] = useState([]);
   const { user, notification } = useContext(StateContext);
@@ -128,6 +129,8 @@ export function ScrollDialog(prop) {
         setmemberShip(JSON.parse(userForm[0].membershipHistory));
         setskills(JSON.parse(userForm[0].skills));
         setpersoanlInfo(JSON.parse(userForm[0].personalInfo))
+        setAddInfo(JSON.parse(userForm[0].additionalInfo))
+        console.log(AddInfo)
       })
       .catch((err) => {
        // notification("error", err.message);
@@ -198,6 +201,18 @@ export function ScrollDialog(prop) {
                   />
                 ))}
             </Grid>
+            <h4 style={{ marginTop: 35 }}>Additional Information</h4>
+            <Grid container spacing={1}>
+            {AddInfo.map((e) => (
+                  <AddInformation
+                  info={e.description}
+                  category={e.category}
+                  date={e.date}
+                  />
+                ))}
+            </Grid> 
+
+            
             <div>
               <h3 style={{ margin: 20, textAlign: "center", color: "black" }}>CV Preview</h3>
               <hr />
@@ -353,5 +368,27 @@ const Skills = (prop) => {
       <span style={{ fontSize: "25px", display: "inline" }}>.</span>
       <span style={{ margin: 0, padding: 0 }}>{prop.skill}</span>
     </div>
+  );
+};
+
+const AddInformation = (prop) => {
+  return (
+    <>
+      <div style={{ display: "flex",flexDirection:"row", gap: 70, marginTop: 5 }}>
+        <div>
+          <span style={{ fontSize: "12px", color: "blue", display: "block" }}>Category</span>
+          <span style={{ margin: 0, padding: 0 }}>{prop.category}</span>
+        </div>
+        <div>
+          <span style={{ fontSize: "12px", color: "blue", display: "block" }}>information</span>
+          <span style={{ margin: 0, padding: 0 }}>{prop.info}</span>
+        </div>
+        <div>
+          <span style={{ fontSize: "12px", color: "blue", display: "block" }}>Date</span>
+          <span style={{ margin: 0, padding: 0 }}>{prop.date}</span>
+        </div>
+      </div>
+      <hr />
+    </>
   );
 };
