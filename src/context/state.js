@@ -5,6 +5,7 @@ export const StateContext = createContext();
 
 export default function StateContextProvider({ children }) {
   const [user, setuser] = useState(localStorage.getItem("user")|| null)
+  const setUser = () => setuser(localStorage.getItem("user"))
   const { enqueueSnackbar } = useSnackbar();
 
   const [disable, setDisable] = useState(true);
@@ -94,6 +95,7 @@ export default function StateContextProvider({ children }) {
     formPostData,
     isLogin,
     isAdmin,
+    setUser,
     postForm,
     notification,
     changeIsLogin,

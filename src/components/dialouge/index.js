@@ -84,14 +84,7 @@ export function ScrollDialog(prop) {
   const { user, notification } = useContext(StateContext);
   const reviewForm = () => {
     setloading(true);
-    fetch(`http://localhost:5000/forms/modify`, {
-      method: "POST",
-      body: JSON.stringify({
-        key: "viewedBy",
-        value: user.id,
-        id: prop.email,
-      }),
-    })
+    fetch(`http://localhost:5000/forms/approve/${prop.email}`)
       .then((res) => res.json())
       .then((data) => {
         data.status == "success"
@@ -201,8 +194,8 @@ export function ScrollDialog(prop) {
                   />
                 ))}
             </Grid>
-            <h4 style={{ marginTop: 35 }}>Additional Information</h4>
-            <Grid container spacing={1}>
+            <h4 style={{ marginTop: 35, marginBottom: 35 }}>Additional Information</h4>
+            <Grid container spacing={1}  >
             {AddInfo.map((e) => (
                   <AddInformation
                   info={e.description}
@@ -374,7 +367,7 @@ const Skills = (prop) => {
 const AddInformation = (prop) => {
   return (
     <>
-      <div style={{ display: "flex",flexDirection:"row", gap: 70, marginTop: 5 }}>
+      <div style={{ display: "flex", gap: 70, marginTop: 5 }}>
         <div>
           <span style={{ fontSize: "12px", color: "blue", display: "block" }}>Category</span>
           <span style={{ margin: 0, padding: 0 }}>{prop.category}</span>
@@ -388,7 +381,6 @@ const AddInformation = (prop) => {
           <span style={{ margin: 0, padding: 0 }}>{prop.date}</span>
         </div>
       </div>
-      <hr />
     </>
   );
 };

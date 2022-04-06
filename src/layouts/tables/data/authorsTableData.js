@@ -25,7 +25,7 @@ import MDBadge from "components/MDBadge";
 import React, { useEffect, useState, useContext } from "react";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+import avatar from "assets/images/avatar.png";
 import { Box } from "@mui/system";
 import { Icon } from "@mui/material";
 import {AlertDialog} from "components/dialouge";
@@ -41,7 +41,7 @@ function fetchUsers() {
       console.log(user)
    
     let tempRow =  {
-      author: <Author image={team3} name={user.fullName} email={user.email} />,
+      author: <Author image={avatar} name={user.fullName} email={user.email} />,
       function: <Job title={user.userRole} description={user.userRole} />,
       status: (
         <MDBox ml={-1}>

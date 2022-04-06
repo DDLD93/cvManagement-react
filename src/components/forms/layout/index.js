@@ -29,7 +29,7 @@ export default function StepperHorizotal() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeStepTitle, setActiveStepTitle] = React.useState("Personal Info");
   const [completed, setCompleted] = React.useState({});
-  const { disable, loading, loadingState, postData, user, notification } = useContext(StateContext);
+  const { disable, loading, loadingState, postData, user, notification,setUser } = useContext(StateContext);
 
   const totalSteps = () => {
     return steps.length;
@@ -125,7 +125,10 @@ export default function StepperHorizotal() {
         })
         break;
         case 5:
-        postData("Additional Information").then(() => {
+        postData("Additional Information").
+        then((res) => {
+          localStorage.setItem("user", JSON.stringify(res.payload))
+          setUser()
           Next();
           setActiveStepTitle("submitted");
         }).catch((err) => {
@@ -144,13 +147,13 @@ export default function StepperHorizotal() {
     setCompleted({});
   };
   return (
-    <Box sx={{ width: "100%" }}>
-      {activeStepTitle == "submitted" || user.additionalInfo =='' ? <Completed/>:
+    <Box color='info' sx={{ width: "100%" }}>
+      {user.isSubmitted || activeStepTitle == "submitted" ? <Completed/>:
       <>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index, label)}>
+            <StepButton color="info" onClick={handleStep(index, label)}>
               {label}
             </StepButton>
           </Step>

@@ -22,30 +22,66 @@ import DefaultProjectCard from "examples/Cards/ProjectCards/DefaultProjectCard";
 
 // Overview page components
 import Header from "layouts/profile/components/Header";
-import PlatformSettings from "layouts/profile/components/PlatformSettings";
-
-// Data
-import profilesListData from "layouts/profile/data/profilesListData";
-
-// Images
-import homeDecor1 from "assets/images/home-decor-1.jpg";
-import homeDecor2 from "assets/images/home-decor-2.jpg";
-import homeDecor3 from "assets/images/home-decor-3.jpg";
-import homeDecor4 from "assets/images/home-decor-4.jpeg";
-import team1 from "assets/images/team-1.jpg";
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+import { StateContext } from "../../context/state";
+import { TextField } from "@mui/material";
+import { useContext,useState } from "react";
 
 function Overview() {
+  const {user} = useContext(StateContext)
+  const [userMap, setuserMap] = useState([])
+userMap.push(user)
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
       <Header>
-       <Grid mt={2}  container sx={{bgcolor:"#fff2",height:"100px", borderRadius:"10px"}} >
-
-       </Grid>
+        {userMap.map(e => (
+            <Grid mt={6} pl={2} gap={3} container sx={{bgcolor:"#fff2", borderRadius:"10px"}} >
+            <TextField 
+            sm={4}
+            disabled
+            label="full Name"
+            defaultValue={e.fullName}
+            variant="outlined"
+            />
+            <TextField 
+            sm={4}
+            disabled
+            label="Email Address"
+            defaultValue={e.email}
+            variant="outlined"
+            />
+            <TextField 
+            sm={4}
+            disabled
+            label="Phone Number"
+            defaultValue={e.phone}
+            variant="outlined"
+            />
+            <TextField 
+            sm={12}
+            disabled
+            label="Staff Manager"
+            defaultValue={e.manager}
+            variant="outlined"
+            />
+             <TextField 
+            sm={12}
+            disabled
+            label="Account Type"
+            defaultValue={e.userRole}
+            variant="outlined"
+            />
+             <TextField 
+            sm={12}
+            disabled
+            label="Document Status"
+            defaultValue={true?"Awaiting for Approval":"Approved"}
+            variant="outlined"
+            />
+           </Grid>
+        ))}
+       
       </Header>
       <Footer />
     </DashboardLayout>
