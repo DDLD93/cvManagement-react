@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 export const StateContext = createContext();
 
 export default function StateContextProvider({ children }) {
-  const [user, setuser] = useState(localStorage.getItem("user")|| null)
+  const [user, setuser] = useState(localStorage.getItem("user") || null)
   const setUser = () => setuser(localStorage.getItem("user"))
   const { enqueueSnackbar } = useSnackbar();
 
@@ -23,9 +23,11 @@ export default function StateContextProvider({ children }) {
   const [isAdmin, setisAdmin] = useState(true);
   const changeIsAdmin = (e) => setisAdmin(e);
 
-  const notification = (type="info",message)=>{
-    enqueueSnackbar(message, {variant:type,
-      anchorOrigin:{vertical: "top", horizontal: "right" }});
+  const notification = (type = "info", message) => {
+    enqueueSnackbar(message, {
+      variant: type,
+      anchorOrigin: { vertical: "top", horizontal: "right" }
+    });
 
   }
   async function postForm(url = "") {
@@ -33,7 +35,7 @@ export default function StateContextProvider({ children }) {
     setLoading(true);
     const response = await fetch(`http://localhost:5000/forms/create`, {
       method: "POST",
-      body:formPostData
+      body: formPostData
     });
     setLoading(false);
     return response.json();
@@ -47,7 +49,7 @@ export default function StateContextProvider({ children }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body:JSON.stringify(formPostData),
+      body: JSON.stringify(formPostData),
     });
     setLoading(false);
     return response.json();
@@ -63,29 +65,47 @@ export default function StateContextProvider({ children }) {
     })
       .then((res) => res.json())
       .then((response) => {
-       console.log("respose>>>>>",response)
-        if(response.status == "Success"){
+        console.log("respose>>>>>", response)
+        if (response.status == "Success") {
           localStorage.setItem("user", JSON.stringify(response.payload))
           localStorage.setItem("token", "token")
           setuser(JSON.parse(localStorage.getItem("user")))
           setLoading(false)
-          notification("success",response.message)
+          notification("success", response.message)
           return
-        } 
-        notification("error",response.message)
+        }
+        notification("error", response.message)
         setLoading(false)
-      }).catch((err)=>{
+      }).catch((err) => {
         console.log(err)
-        notification("error",response.message)
+        notification("error", response.message)
         setLoading(false)
       });
   };
 
   useEffect(() => {
-  
-    let localuser =JSON.parse(localStorage.getItem("user"))|| null
+
+    let localuser = JSON.parse(localStorage.getItem("user")) || null
     setuser(localuser)
-   
+    // let user = null
+    // console.log(localStorage.getItem("user"))
+    // try {
+    //  // user =JSON.parse(user)
+    //   fetch(`http://localhost:5000/getuser/${user.email}`).
+    //     then(res => res.json()).
+    //     then(data => {
+    //       if (data.payload) {
+    //        localStorage.setItem("user", data.payload)
+    //         setuser(data.payload)
+    //       }
+          
+    //      })
+      
+    // } catch (error) {
+    //   console.log(error)
+    // }
+
+
   }, []);
 
   const context = {
@@ -107,8 +127,8 @@ export default function StateContextProvider({ children }) {
     login,
   };
 
-  return <StateContext.Provider 
-            value={context}>
-            {children}
-          </StateContext.Provider>;
+  return <StateContext.Provider
+    value={context}>
+    {children}
+  </StateContext.Provider>;
 }
