@@ -1,9 +1,8 @@
-import {Icon, TextField} from "@mui/material";
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import {Icon,Grid,TextField} from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/RemoveCircleOutline';
 const SkillList = (prop) => {
     return (
-        <div  style={{display:"flex", alignItems:"center"}}>
- 
+        <Grid gap={1} container alignItems="center" >
      <TextField disabled  defaultValue={prop.skill}  label="Skill" variant="outlined" />
      
      <Icon fontSize="50"
@@ -17,7 +16,7 @@ const SkillList = (prop) => {
          onClick= {prop.delete}
          />
      </Icon>
-        </div>
+        </Grid>
     )
   }
   export default SkillList

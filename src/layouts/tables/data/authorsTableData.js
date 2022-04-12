@@ -28,8 +28,7 @@ import team3 from "assets/images/team-3.jpg";
 import avatar from "assets/images/avatar.png";
 import { Box } from "@mui/system";
 import { Icon } from "@mui/material";
-import {AlertDialog} from "components/dialouge";
-import { ScrollDialog } from "components/dialouge";
+import {SuspendDialog,EditDialog,ScrollDialog} from "components/dialouge";
 
 export default function data() {
 const [rows, setrows] = useState([])
@@ -37,9 +36,7 @@ function fetchUsers() {
   fetch("http://localhost:5000/getusers")
 .then(res =>res.json())
 .then(result=>{
-  result.payload.map(user =>{
-      console.log(user)
-   
+  result.payload.map(user =>{   
     let tempRow =  {
       author: <Author image={avatar} name={user.fullName} email={user.email} />,
       function: <Job title={user.userRole} description={user.userRole} />,
@@ -58,14 +55,9 @@ function fetchUsers() {
           <ScrollDialog
           email={user.email}
           />
-          <AlertDialog
-         icon={"block"}
-         text={"Are are about to suspend this user ?"}
-         id={user.id}
-         />
-          <AlertDialog
-          icon={"delete"}
-          text={"Are you sure you want to Parmanently delete this user ?"}
+          <EditDialog />
+          <SuspendDialog
+          icon={"block"}
           id={user.id}
           />
       </Box>

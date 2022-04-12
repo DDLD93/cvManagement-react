@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Checkbox, FormControl, Grid, RadioGroup, TextField } from "@mui/material";
@@ -41,9 +41,10 @@ export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [role, setrole] = useState(SignalCellularNull)
-  const [title, settitle] = useState(null);
+  const [role, setrole] = useState("staff")
+  const [title, settitle] = useState("none");
   const [manager, setmanager] = useState(null);
+  const [managerList, setmanagerList] = useState(null)
   const {notification,loadingState} = useContext(StateContext);
 
   async function postData(data) {
@@ -57,14 +58,26 @@ export default function BasicModal() {
     });
     return response.json();
   }
-
+async function getUserAdmin () {
+  try {
+    const response = await fetch(`http://localhost:5000/getusers/userRole/staffAdmin`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  } catch (error) {
+    return error
+  }
+}
   const addUser = (event) => {
     event.preventDefault();
     let data = new FormData(event.currentTarget);
     data = {
       email: data.get("email"),
       phone: data.get("phone"),
-      fullName: `${title} ${data.get("fullName")}`,
+      fullName: `${title=="none"?"":title} ${data.get("fullName")}`,
       userRole: role,
       manager,
       sms: false,
@@ -87,6 +100,13 @@ export default function BasicModal() {
       });
   };
 
+  useEffect(() => {
+    getUserAdmin().
+    then(r => setmanagerList(r.payload)).
+    catch(err => notification("error",err.message))
+  }, [open])
+  
+
   return (
     <div style={style.button}>
       <MDButton onClick={handleOpen} color="primary">
@@ -107,11 +127,11 @@ export default function BasicModal() {
               <BasicSelect
                 label="Title"
                 value={title}
-                changes={(e) => settitle(e.target.value)}
+                changes={(e) => {settitle(e.target.value);console.log(e.target.value)}}
                 list={[
-                  { name: null, value: null },
-                  { name: "Professor", value: "professor"},
-                  { name: "Dr", value: "Dr" },
+                  { fullName: "none", value: "none" },
+                  { fullName: "Professor", email: "professor"},
+                  { fullName: "Dr", email: "Dr" },
                 ]}
               />
             </Grid>
@@ -149,8 +169,8 @@ export default function BasicModal() {
                 value={role}
                 changes={(e) => setrole(e.target.value)}
                 list={[
-                  { name: "Staff", value: "staff" },
-                  { name: "Staff Admin", value: "staffAdmin" },
+                  { fullName: "Staff", email: "staff" },
+                  { fullName: "Staff Admin", email: "staffAdmin" },
                 ]}
               />
             </Grid>
@@ -160,11 +180,7 @@ export default function BasicModal() {
                 isDisabled={role=="staff"?false:true}
                 value={manager}
                 changes={(e) => setmanager(e.target.value)}
-                list={[
-                  { name: null, value: null },
-                  { name: "Prof Namuda Bakano", value: "Prof Namuda Bakano" },
-                  { name: "Eng Talle Yar Auta", value: "Eng Talle Yar Auta" },
-                ]}
+                list={managerList}
               />
             </Grid>
             <Grid container justifyContent="space-around" item xs={12}>

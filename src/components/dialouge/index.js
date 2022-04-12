@@ -5,25 +5,28 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Grid, Icon } from "@mui/material";
+import { Grid, Icon, TextField, Typography } from "@mui/material";
 import { StateContext } from "../../context/state";
 import { LoadingButton } from "@mui/lab";
-import { PDFrender } from "components/PDF";
+import MDButton from "components/MDButton";
 
-export function AlertDialog(prop) {
+import { PDFrender } from "components/PDF";
+import TextArea from "components/forms/section/component/TextArea";
+
+export function SuspendDialog(prop) {
   const [open, setOpen] = React.useState(false);
   const [loading, setloading] = useState(false);
   const { notification } = useContext(StateContext);
 
   const action = () => {
     setloading(true);
-    fetch(`http://localhost:5000/${prop.icon == "delete" ? "delete" : "suspend"}/${prop.id}`)
+    fetch(`http://localhost:5000/suspend/${prop.id}`)
       .then((res) => res.json())
       .then((res) => {
         res.status == "Success"
           ? notification("success", res.message)
           : notification("error", res.message);
-          console.log(res)
+        console.log(res)
         setOpen(false);
         setloading(false);
       })
@@ -48,9 +51,9 @@ export function AlertDialog(prop) {
         {prop.icon}
       </Icon>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle>{"Account Suspension"}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{prop.text}</DialogContentText>
+          <DialogContentText>Are are about to suspend this user ?</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
@@ -68,7 +71,71 @@ export function AlertDialog(prop) {
     </div>
   );
 }
+export function EditDialog() {
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
+  return (
+    <div>
+      <Icon sx={{ cursor: "pointer" }} onClick={handleClickOpen}>
+        edit
+      </Icon>
+      <Dialog
+        open={open}
+        fullWidth
+        onClose={handleClose}>
+        <DialogTitle sx={{mb:5}} id="responsive-dialog-title">
+          {"Account Modification"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Grid sx={{p:2}} gap={3} container >
+              <Grid >
+                <TextField defaultValue="Umar Adamu Jere" label="Full Name" />
+              </Grid>
+              <Grid>
+                <TextField defaultValue="Umar Adamu Jere" label="Staff Manager" />
+              </Grid>
+              <Grid>
+                <TextField defaultValue="umar.jere@gmail.com" label="Email" />
+              </Grid>
+              <Grid>
+                <TextField defaultValue="07055793353" label="Phone Number" />
+              </Grid>
+
+              <Grid container flexDirection="row" xs={12} item  >
+                <Grid item xs={6}>
+                 <TextArea sx={{width:50}} label="Leave blank to auto generate"/>
+                </Grid>
+                <Grid xs={3}>
+                <MDButton
+                variant="gradient"
+                >
+                Reset Password
+                </MDButton>
+
+                </Grid>
+              </Grid>
+              <Grid xs={6}  item  >
+              </Grid>
+              <Grid xs={6}  item  >
+              </Grid>
+
+
+            </Grid>
+          </DialogContentText>
+
+        </DialogContent>
+
+      </Dialog>
+    </div>
+  )
+}
 export function ScrollDialog(prop) {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState("paper");
@@ -90,7 +157,7 @@ export function ScrollDialog(prop) {
         data.status == "success"
           ? notification("success", data.message)
           : notification("error", data.message);
-          console.log(data)
+        console.log(data)
         setloading(false);
         setOpen(false)
       })
@@ -126,7 +193,7 @@ export function ScrollDialog(prop) {
         console.log(AddInfo)
       })
       .catch((err) => {
-       // notification("error", err.message);
+        // notification("error", err.message);
       });
     if (open) {
       const { current: descriptionElement } = descriptionElementRef;
@@ -146,7 +213,7 @@ export function ScrollDialog(prop) {
         <DialogContent dividers={scroll === "paper"}>
           <DialogContentText p={3} ref={descriptionElementRef} tabIndex={-1}>
             <h4 style={{ marginBottom: 15 }}>Personal Information</h4>
-           {PersonalInfoRender(persoanlInfo)}
+            {PersonalInfoRender(persoanlInfo)}
             <h4 style={{ marginTop: 35 }}>Education History</h4>
             <Grid container spacing={4}>
               <Grid item xs={12}>
@@ -163,12 +230,12 @@ export function ScrollDialog(prop) {
             <h4 style={{ marginTop: 35 }}>Work History</h4>
             <Grid container spacing={4}>
               <Grid item xs={12}>
-              {work.map((e) => (
+                {work.map((e) => (
                   <WorkHistory
-                  orgnisation={e.organisation}
-                  title={e.title}
-                  started={e.date}
-                  ended={"2015-11"}
+                    orgnisation={e.organisation}
+                    title={e.title}
+                    started={e.date}
+                    ended={"2015-11"}
                   />
                 ))}
               </Grid>
@@ -176,36 +243,36 @@ export function ScrollDialog(prop) {
             <h4 style={{ marginTop: 35 }}>MemberShip</h4>
             <Grid container spacing={4}>
               <Grid item xs={12}>
-              {memberShip.map((e) => (
+                {memberShip.map((e) => (
                   <Membership
-                  orgnisation={e.organisation}
-                  title={e.title}
-                  started={e.date}
-                  ended={"2015-11"}
+                    orgnisation={e.organisation}
+                    title={e.title}
+                    started={e.date}
+                    ended={"2015-11"}
                   />
                 ))}
               </Grid>
             </Grid>
             <h4 style={{ marginTop: 35 }}>Skills</h4>
             <Grid container spacing={1} flexDirection="row">
-            {skills.map((e) => (
-                  <Skills
+              {skills.map((e) => (
+                <Skills
                   skill={e.skill}
-                  />
-                ))}
+                />
+              ))}
             </Grid>
             <h4 style={{ marginTop: 35, marginBottom: 35 }}>Additional Information</h4>
             <Grid container spacing={1}  >
-            {AddInfo.map((e) => (
-                  <AddInformation
+              {AddInfo.map((e) => (
+                <AddInformation
                   info={e.description}
                   category={e.category}
                   date={e.date}
-                  />
-                ))}
-            </Grid> 
+                />
+              ))}
+            </Grid>
 
-            
+
             <div>
               <h3 style={{ margin: 20, textAlign: "center", color: "black" }}>CV Preview</h3>
               <hr />
@@ -247,42 +314,42 @@ const Field = (prop) => {
     </>
   );
 };
-const PersonalInfoRender = ({firstName,lastName,surName,email,phone,address,personalStatement}) => {
-    return (
-        <Grid container spacing={4}>
-          {/* <Grid item xs={2} >
+const PersonalInfoRender = ({ firstName, lastName, surName, email, phone, address, personalStatement }) => {
+  return (
+    <Grid container spacing={4}>
+      {/* <Grid item xs={2} >
                     <Field
                     title={"Title"}
                     field={"Dr"}
                     />
               </Grid> */}
-          <Grid item xs={12}>
-            <Field
-              title={"Summary"}
-              field={personalStatement}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            
-              <Field title={"Full Name"} field={firstName+" "+lastName+" "+surName} />
-        
-          </Grid>
-          <Grid item xs={2}>
-            <Field title={"Gender"} field={"Not found"} />
-          </Grid>
-          <Grid item xs={3}>  
-              <Field title={"Email"} field={email} />
-          </Grid>
-          <Grid item xs={3}>
-            <Field title={"Phone"} field={phone} />
-          </Grid>
-          <Grid item xs={12}>
-            <Field title={"Address"} field={address} />
-          </Grid>
-        </Grid>
-        
-    );
-  };
+      <Grid item xs={12}>
+        <Field
+          title={"Summary"}
+          field={personalStatement}
+        />
+      </Grid>
+      <Grid item xs={3}>
+
+        <Field title={"Full Name"} field={firstName + " " + lastName + " " + surName} />
+
+      </Grid>
+      <Grid item xs={2}>
+        <Field title={"Gender"} field={"Not found"} />
+      </Grid>
+      <Grid item xs={3}>
+        <Field title={"Email"} field={email} />
+      </Grid>
+      <Grid item xs={3}>
+        <Field title={"Phone"} field={phone} />
+      </Grid>
+      <Grid item xs={12}>
+        <Field title={"Address"} field={address} />
+      </Grid>
+    </Grid>
+
+  );
+};
 const EducationHistory = (prop) => {
   return (
     <>

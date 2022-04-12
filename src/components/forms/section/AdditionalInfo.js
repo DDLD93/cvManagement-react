@@ -79,11 +79,11 @@ lists.length > 0 ? readyState() : buttonState(true);
                 changes={(e) => setvalue(e.target.value)}
                 list={[
                   { name: null, value: null },
-                  { name: "RESEARCH", value: "RESEARCH" },
-                  { name: "TEACHING", value: "TEACHING" },
-                  { name: "PUBLICATIONS/PRESENTATIONS", value: "PUBLICATIONS" },
-                  { name: "CONFERENCES/COURSES", value: "COURSES" },
-                  { name: "FUNDING/ACADEMIC AWARDS", value: "FUNDING" },
+                  { fullName: "RESEARCH", value: "RESEARCH" },
+                  { fullName: "TEACHING", value: "TEACHING" },
+                  { fullName: "PUBLICATIONS/PRESENTATIONS", value: "PUBLICATIONS" },
+                  { fullName: "CONFERENCES/COURSES", value: "COURSES" },
+                  { fullName: "FUNDING/ACADEMIC AWARDS", value: "FUNDING" },
                 ]}
               />
 
@@ -105,7 +105,7 @@ lists.length > 0 ? readyState() : buttonState(true);
           if (e.target.value) setHasValueEnd(e.target.value);
           else setHasValueEnd(false);
         }}
-        type={hasValueEnd || focusEnd ? "date" : "text"}
+        type={hasValueEnd || focusEnd ? "month" : "text"}
           label="Date"
           variant="outlined"
         />

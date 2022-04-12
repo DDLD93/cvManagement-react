@@ -98,14 +98,7 @@ const routes = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "collapse",
-    name: "Log Out",
-    key: "sign-in",
-    icon: <Icon fontSize="small">logout</Icon>,
-    route: "/login",
-    component: <SignIn />,
-  },
+
   // {
   //   type: "collapse",
   //   name: "Sign Up",
@@ -135,14 +128,14 @@ const staffRoutes = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "collapse",
-    name: "Log Out",
-    key: "sign-in",
-    icon: <Icon fontSize="small">logout</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Log Out",
+  //   key: "sign-in",
+  //   icon: <Icon fontSize="small">logout</Icon>,
+  //   route: "/authentication/sign-in",
+  //   component: <SignIn />,
+  // },
   // {
   //   type: "collapse",
   //   name: "Sign Up",
@@ -202,14 +195,14 @@ const staffAdmin = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "collapse",
-    name: "Log Out",
-    key: "sign-in",
-    icon: <Icon fontSize="small">logout</Icon>,
-    route: "/login",
-    component: <SignIn />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Log Out",
+  //   key: "sign-in",
+  //   icon: <Icon fontSize="small">logout</Icon>,
+  //   route: "/login",
+  //   component: <SignIn />,
+  // },
   // {
   //   type: "collapse",
   //   name: "Sign Up",

@@ -1,8 +1,8 @@
-import {Icon, TextField} from "@mui/material";
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import {Icon, Grid,TextField} from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 const RenderListThree = (prop) => {
     return (
-        <div  style={{display:"flex", alignItems:"center"}}>
+        <Grid gap={1} flexWrap="nowrap" container alignItems="center" >
  
      <TextField disabled  defaultValue={prop.institution}  label="Institution" variant="outlined" />
      <TextField disabled  defaultValue={prop.qualification}  label="Qualification" variant="outlined" />
@@ -14,12 +14,12 @@ const RenderListThree = (prop) => {
          color:"red"
          
      }}>
-         <RemoveCircleOutlineIcon
+         <DeleteForeverIcon
          id={prop.id}
          onClick= {prop.delete}
          />
      </Icon>
-        </div>
+        </Grid>
     )
   }
 

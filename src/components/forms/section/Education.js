@@ -20,6 +20,7 @@ function Education() {
   const [hasValueEnd, setHasValueEnd] = useState(false);
 
   const { disable, loading, buttonState,setFormPost,user} = useContext(StateContext);
+  const textInput = React.useRef(null);
 
   const color = lists.length < 1 ? "" : "lightBlue";
   var key = uuid();
@@ -35,6 +36,7 @@ function Education() {
     setlists((prev) => [...prev, list]);
     setinst("");
     setqualf("");
+    textInput.current.value = "";
   };
   const deleteEntry = (e) => {
     console.log(lists.length);
@@ -69,12 +71,14 @@ function Education() {
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 5 }}>
         <TextField
           onChange={(e) => setinst(e.target.value)}
+          inputRef={textInput}
           id="Institution"
           label="Institution"
           variant="outlined"
         />
         <TextField
           value={qualf}
+          inputRef={textInput}
           onChange={(e) => setqualf(e.target.value)}
           id="Qualification"
           label="Qualification"
@@ -82,6 +86,7 @@ function Education() {
         />
         <TextField
           onFocus={() => setFocusStart(true)}
+          inputRef={textInput}
           onBlur={() => setFocusStart(false)}
           onChange={(e) => {
             if (e.target.value) setHasValueStart(e.target.value);
@@ -93,6 +98,7 @@ function Education() {
         />
         <TextField
           onFocus={() => setFocusEnd(true)}
+          inputRef={textInput}
           onBlur={() => setFocusEnd(false)}
           onChange={(e) => {
             if (e.target.value) setHasValueEnd(e.target.value);
