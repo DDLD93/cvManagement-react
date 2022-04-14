@@ -29,9 +29,12 @@ import avatar from "assets/images/avatar.png";
 import { Box } from "@mui/system";
 import { Icon } from "@mui/material";
 import {SuspendDialog,EditDialog,ScrollDialog} from "components/dialouge";
+import { StateContext } from "../../../context/state";
 
 export default function data() {
 const [rows, setrows] = useState([])
+const {user } = useContext(StateContext);
+
 
 
 useEffect(() => {
@@ -44,30 +47,40 @@ function fetchUsers() {
   fetch("http://localhost:5000/getusers")
 .then(res =>res.json())
 .then(result=>{
-  result.payload.map(user =>{   
+  result.payload.map(users =>{   
     let tempRow =  {
-      author: <Author image={avatar} name={user.fullName} email={user.email} />,
-      function: <Job title={user.userRole} description={user.userRole} />,
+      author: <Author image={avatar} name={users.fullName} email={users.email} />,
+      function: <Job title={users.userRole} description={users.userRole} />,
       status: (
         <MDBox ml={-1}>
-          <MDBadge badgeContent="online" color="dark" variant="gradient" size="sm" />
+          <MDBadge badgeContent={users.isSubmitted== true?
+            users.isApproved== true?"Approved":
+            "action needed":
+            "No submission"} 
+            color={users.isSubmitted== true?
+              users.isApproved== true?"success":
+              "error":
+              "dark"} 
+            variant="gradient" 
+            size="sm" />
         </MDBox>
       ),
       employed: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          {user.createdAt.split("T")[0]}
+          {users.createdAt.split("T")[0]}
         </MDTypography>
       ),
       action: (
         <Box component="div" sx={{fontSize:"20px",display:"flex",gap:1 }}>
           <ScrollDialog
-          email={user.email}
+          email={users.email}
           />
-          <EditDialog />
-          <SuspendDialog
-          icon={"block"}
-          id={user.id}
-          />
+          {user.userRole == "admin"?<EditDialog
+          props={users}
+          />:null}
+          {user.userRole == "admin"?<SuspendDialog
+          id={users.id}
+          />:null}
       </Box>
       
       ),
@@ -108,7 +121,7 @@ function fetchUsers() {
     columns: [
       { Header: "user", accessor: "author", width: "45%", align: "left" },
       { Header: "Role", accessor: "function", align: "left" },
-      { Header: "Last Seen", accessor: "status", align: "center" },
+      { Header: "Form Status", accessor: "status", align: "center" },
       { Header: "Created At", accessor: "employed", align: "center" },
       { Header: "action", accessor: "action", align: "center" },
     ],

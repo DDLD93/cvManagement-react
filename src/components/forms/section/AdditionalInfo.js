@@ -16,11 +16,11 @@ import AddList from "./component/AddList";
 function Info() {
   const [info, setinfo] = React.useState("");
   const [lists, setlists] = React.useState([])
-  const [value, setvalue] = useState(false)
+  const [value, setvalue] = useState(undefined)
   const [disabled, setdisabled] = useState(true)
   const { buttonState,setFormPost,user } = useContext(StateContext);
   const [focusEnd, setFocusEnd] = useState(false);
-  const [hasValueEnd, setHasValueEnd] = useState(false);
+  const [hasValueEnd, setHasValueEnd] = useState(undefined);
 
 
   
@@ -36,12 +36,11 @@ var key = uuid()
        }
         
       setlists(prev =>[...prev,list])
-      
+      setHasValueEnd(undefined)
       setinfo("")
         
      }  
   const deleteEntry = (e)=>{
-    console.log(lists)
     let id = e.target.id
      setlists(lists.filter(item => item.id !== id));
   
@@ -57,14 +56,14 @@ var key = uuid()
   };
 
  useEffect(() => {
-  if (info==""||hasValueEnd==null||value==null) {
+  if (info==""||hasValueEnd==undefined||value==undefined) {
      
     setdisabled(true)
 }else{
  setdisabled(false) 
 }
 lists.length > 0 ? readyState() : buttonState(true);
- }, [info,hasValueEnd])
+ }, [info,hasValueEnd,value])
  
   
   return (
@@ -90,7 +89,8 @@ lists.length > 0 ? readyState() : buttonState(true);
         </Grid>
         <Grid xs={4} item >
         <TextArea  
-        label={"Additional Information"}
+        label={"Additional Information"} 
+        value={info}
         change={(e)=> setinfo(e.target.value)}
         maxRows={5}
         style={{width:100}}
@@ -100,7 +100,7 @@ lists.length > 0 ? readyState() : buttonState(true);
         <TextField
          onFocus={() => setFocusEnd(true)}
          onBlur={() => setFocusEnd(false)}
-         
+         value={hasValueEnd}
          onChange={(e) => {
           if (e.target.value) setHasValueEnd(e.target.value);
           else setHasValueEnd(false);
@@ -129,7 +129,7 @@ lists.length > 0 ? readyState() : buttonState(true);
             delete={deleteEntry}
             category={e.category}
             description={e.description}
-            date={hasValueEnd}
+            date={e.date}
             />
           )
         })}

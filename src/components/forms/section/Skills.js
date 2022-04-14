@@ -63,7 +63,13 @@ var key = uuid()
 skills, time-management, communication skills and project management skills
         </Typography>
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
-        <TextField onChange={(e)=> setskill(e.target.value)} id="organisation" label="Skill" variant="outlined" />
+        <TextField 
+        onChange={(e)=> setskill(e.target.value)} 
+        id="organisation" 
+        label="Skill" 
+        variant="outlined" 
+        value={skill}
+        />
         <Fab size="small" color="secondary" onClick={add} disabled={disabled}  component="label" >
          <AddIcon />
           </Fab>

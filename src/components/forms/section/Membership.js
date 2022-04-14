@@ -28,10 +28,9 @@ function Membership() {
       title,
       date: hasValueStart,
     };
+    setlists((prev) => [...prev, list]);
     setTitle("")
     setOrganisation("")
-    setOrganisation("")
-    setlists((prev) => [...prev, list]);
   };
   const deleteEntry = (e) => {
     let id = e.target.id;
@@ -65,12 +64,14 @@ function Membership() {
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 5 }}>
         <TextField
           onChange={(e) => setOrganisation(e.target.value)}
+          value={organisation}
           id="Institution"
           label="Organisation"
           variant="outlined"
         />
         <TextField
           onChange={(e) => setTitle(e.target.value)}
+          value={title}
           id="Qualification"
           label="Title"
           variant="outlined"

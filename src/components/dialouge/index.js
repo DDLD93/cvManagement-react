@@ -48,7 +48,7 @@ export function SuspendDialog(prop) {
   return (
     <div>
       <Icon sx={{ cursor: "pointer" }} onClick={handleClickOpen}>
-        {prop.icon}
+        block
       </Icon>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{"Account Suspension"}</DialogTitle>
@@ -71,7 +71,7 @@ export function SuspendDialog(prop) {
     </div>
   );
 }
-export function EditDialog() {
+export function EditDialog({fullName,manager,email,phone}) {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -96,16 +96,16 @@ export function EditDialog() {
           <DialogContentText>
             <Grid sx={{p:2}} gap={3} container >
               <Grid >
-                <TextField defaultValue="Umar Adamu Jere" label="Full Name" />
+                <TextField defaultValue={fullName} label="Full Name" />
               </Grid>
               <Grid>
-                <TextField defaultValue="Umar Adamu Jere" label="Staff Manager" />
+                <TextField defaultValue={manager} label="Staff Manager" />
               </Grid>
               <Grid>
-                <TextField defaultValue="umar.jere@gmail.com" label="Email" />
+                <TextField defaultValue={email} label="Email" />
               </Grid>
               <Grid>
-                <TextField defaultValue="07055793353" label="Phone Number" />
+                <TextField defaultValue={phone} label="Phone Number" />
               </Grid>
 
               <Grid container flexDirection="row" xs={12} item  >

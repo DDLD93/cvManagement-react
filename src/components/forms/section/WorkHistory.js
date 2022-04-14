@@ -17,9 +17,9 @@ function WorkHistory() {
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
   const [focusStart, setFocusStart] = useState(null);
-  const [hasValueStart, setHasValueStart] = useState(null);
+  const [hasValueStart, setHasValueStart] = useState("");
   const [focusEnd, setFocusEnd] = useState(null);
-  const [hasValueEnd, setHasValueEnd] = useState(false);
+  const [hasValueEnd, setHasValueEnd] = useState("");
   const textInput = React.useRef(null);
 
   const { buttonState,setFormPost,user } = useContext(StateContext);
@@ -42,6 +42,7 @@ var key = uuid()
       
       settitle("")
       setorganisation("")
+      textInput.current.value = null;
      
      }  
   const deleteEntry = (e)=>{
@@ -78,12 +79,14 @@ var key = uuid()
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
         <TextField
          onChange={(e)=> setorganisation(e.target.value)}
+         inputRef={textInput}
          value={organisation}
           id="organisation" 
           label="Organisation" 
           variant="outlined" />
         <TextField 
         onChange={(e)=> settitle(e.target.value)} 
+        inputRef={textInput}
         value={title}
         id="Title" 
         label="Job Title" 
