@@ -19,17 +19,14 @@ function PersonalInfo() {
   const [gender, setgender] = useState("");
   const [address, setaddress] = useState("");
   const [personalStatement, setpersonalStatement] = useState("");
-  const { buttonState, setFormPost,formPost, user } = useContext(StateContext);
+  const { buttonState, setFormPost,formPost, user, } = useContext(StateContext);
 
+  // let pdf = document.getElementById("file").value
   // let formData = new FormData();
-  // formData.append("firstName", firstName);
-  // formData.append("lastName", lastName);
-  // formData.append("surName", surName);
-  // formData.append("email", email);
-  // formData.append("PrimaryEmail", user.email);
-  // formData.append("phone", phone);
-  // formData.append("address", address);
-  // formData.append("personalStatement", personalStatement);
+  // formData.append("pdf", pdf);
+
+
+  
 
   const readyState = () => {
     setFormPost({

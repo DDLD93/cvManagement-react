@@ -32,6 +32,14 @@ import {SuspendDialog,EditDialog,ScrollDialog} from "components/dialouge";
 
 export default function data() {
 const [rows, setrows] = useState([])
+
+
+useEffect(() => {
+  fetchUsers()  
+  
+   
+  }, [])
+
 function fetchUsers() {
   fetch("http://localhost:5000/getusers")
 .then(res =>res.json())
@@ -93,10 +101,7 @@ function fetchUsers() {
       <MDTypography variant="caption">{description}</MDTypography>
     </MDBox>
   );
-  useEffect(() => {
-  fetchUsers()
-   
-  }, [])
+
   
 
   return {

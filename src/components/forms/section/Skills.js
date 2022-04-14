@@ -68,7 +68,7 @@ skills, time-management, communication skills and project management skills
          <AddIcon />
           </Fab>
       </Grid>
-      <Grid sx={{ p:1.2, display: "flex", gap: 2, flexWrap: "wrap", alignItems:"center", background:color }}>
+      <Grid sx={{  mt:5,p:1.2, display: "flex",flexDirection:"row", gap: 2, flexWrap: "wrap", alignItems:"center", background:color }}>
         {lists.map((e)=>{
           return(
             <SkillList

@@ -16,10 +16,11 @@ function WorkHistory() {
   const [title, settitle] = React.useState("")
   const [lists, setlists] = React.useState([])
   const [disabled, setdisabled] = useState(true)
-  const [focusStart, setFocusStart] = useState(false);
-  const [hasValueStart, setHasValueStart] = useState(false);
-  const [focusEnd, setFocusEnd] = useState(false);
+  const [focusStart, setFocusStart] = useState(null);
+  const [hasValueStart, setHasValueStart] = useState(null);
+  const [focusEnd, setFocusEnd] = useState(null);
   const [hasValueEnd, setHasValueEnd] = useState(false);
+  const textInput = React.useRef(null);
 
   const { buttonState,setFormPost,user } = useContext(StateContext);
 
@@ -75,30 +76,41 @@ var key = uuid()
       Add in reverse chronological order, job title, organisation and dates
         </Typography>
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap",mt:5 }}>
-        <TextField onChange={(e)=> setorganisation(e.target.value)} id="organisation" label="Organisation" variant="outlined" />
-        <TextField onChange={(e)=> settitle(e.target.value)} id="Title" label="Job Title" variant="outlined" />
+        <TextField
+         onChange={(e)=> setorganisation(e.target.value)}
+         value={organisation}
+          id="organisation" 
+          label="Organisation" 
+          variant="outlined" />
+        <TextField 
+        onChange={(e)=> settitle(e.target.value)} 
+        value={title}
+        id="Title" 
+        label="Job Title" 
+        variant="outlined"
+         />
         <TextField
          onFocus={() => setFocusStart(true)}
          onBlur={() => setFocusStart(false)}
-         
+         value={hasValueStart}
          onChange={(e) => {
           if (e.target.value) setHasValueStart(e.target.value);
           else setHasValueStart(false);
         }}
       
-        type={hasValueStart || focusStart ? "date" : "text"}
+        type={hasValueStart || focusStart ? "month" : "text"}
           label="Date Started"
           variant="outlined"
         />
         <TextField
          onFocus={() => setFocusEnd(true)}
          onBlur={() => setFocusEnd(false)}
-         
+         value={hasValueEnd}
          onChange={(e) => {
           if (e.target.value) setHasValueEnd(e.target.value);
           else setHasValueEnd(false);
         }}
-        type={hasValueEnd || focusEnd ? "date" : "text"}
+        type={hasValueEnd || focusEnd ? "month" : "text"}
           label="Date Completed"
           variant="outlined"
         />
@@ -106,7 +118,7 @@ var key = uuid()
          <AddIcon />
           </Fab>
       </Grid>
-      <Grid sx={{ mt:5, display: "flex", gap: 2, maxWidth:650, flexWrap: "wrap", alignItems:"center", background:color }}>
+      <Grid sx={{  mt:5,p:1.2, display: "flex", gap: 2, maxWidth:650, flexWrap: "wrap", alignItems:"center", background:color }}>
         {lists.map((e)=>{
           return(
             <RenderListtwo

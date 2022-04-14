@@ -15,11 +15,11 @@ function Education() {
   const [lists, setlists] = React.useState([]);
   const [disabled, setdisabled] = useState(true);
   const [focusStart, setFocusStart] = useState(false);
-  const [hasValueStart, setHasValueStart] = useState(false);
+  const [hasValueStart, setHasValueStart] = useState(null);
   const [focusEnd, setFocusEnd] = useState(false);
-  const [hasValueEnd, setHasValueEnd] = useState(false);
+  const [hasValueEnd, setHasValueEnd] = useState(null);
 
-  const { disable, loading, buttonState,setFormPost,user} = useContext(StateContext);
+  const { buttonState,setFormPost,user} = useContext(StateContext);
   const textInput = React.useRef(null);
 
   const color = lists.length < 1 ? "" : "lightBlue";
@@ -36,10 +36,11 @@ function Education() {
     setlists((prev) => [...prev, list]);
     setinst("");
     setqualf("");
+    setHasValueStart(null)
+    setHasValueEnd(null)
     textInput.current.value = "";
   };
   const deleteEntry = (e) => {
-    console.log(lists.length);
     let id = e.target.id;
     setlists(lists.filter((item) => item.id !== id));
   }
@@ -71,14 +72,13 @@ function Education() {
       <Grid sx={{ display: "flex", gap: 2, flexWrap: "wrap", mt: 5 }}>
         <TextField
           onChange={(e) => setinst(e.target.value)}
-          inputRef={textInput}
+          value={inst}
           id="Institution"
           label="Institution"
           variant="outlined"
         />
         <TextField
           value={qualf}
-          inputRef={textInput}
           onChange={(e) => setqualf(e.target.value)}
           id="Qualification"
           label="Qualification"
@@ -92,7 +92,7 @@ function Education() {
             if (e.target.value) setHasValueStart(e.target.value);
             else setHasValueStart(false);
           }}
-          type={hasValueStart || focusStart ? "date" : "text"}
+          type={hasValueStart || focusStart ? "month" : "text"}
           label="Date Started"
           variant="outlined"
         />
@@ -104,7 +104,7 @@ function Education() {
             if (e.target.value) setHasValueEnd(e.target.value);
             else setHasValueEnd(false);
           }}
-          type={hasValueEnd || focusEnd ? "date" : "text"}
+          type={hasValueEnd || focusEnd ? "month" : "text"}
           label="Date Completed"
           variant="outlined"
         />

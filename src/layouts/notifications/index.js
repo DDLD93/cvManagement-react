@@ -30,6 +30,7 @@ import MDSnackbar from "components/MDSnackbar";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
+import { Typography } from "@mui/material";
 
 
 
@@ -119,7 +120,9 @@ function Notifications() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mt={0} mb={0}>
-        <Grid container spacing={3} justifyContent="center">
+      <Grid container sx={{height:"70vh",margin:0}} spacing={3} alignItems="center" justifyContent="center">
+        <Typography component="caption" >logs will appear here</Typography>
+        {/* 
           <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2}>
@@ -192,7 +195,8 @@ function Notifications() {
               </MDBox>
             </Card>
   </Grid>
-        </Grid> 
+         */}
+         </Grid> 
       </MDBox>
       <Footer />
     </DashboardLayout>

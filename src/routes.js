@@ -85,7 +85,7 @@ const routes = [
   {
     type: "collapse",
     name: "Activity Logs",
-    key: "notifications",
+    key: "Activity Logs",
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
     component: <Notifications />,
@@ -179,14 +179,14 @@ const staffAdmin = [
   //   route: "/rtl",
   //   component: <RTL />,
   // },
-  {
-    type: "collapse",
-    name: "Activity Logs",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Activity Logs",
+  //   key: "Activity Logs",
+  //   icon: <Icon fontSize="small">notifications</Icon>,
+  //   route: "/notifications",
+  //   component: <Notifications />,
+  // },
   {
     type: "collapse",
     name: "Profile",

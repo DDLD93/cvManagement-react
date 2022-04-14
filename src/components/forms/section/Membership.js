@@ -82,7 +82,7 @@ function Membership() {
             if (e.target.value) setHasValueStart(e.target.value);
             else setHasValueStart(false);
           }}
-          type={hasValueStart || focusStart ? "date" : "text"}
+          type={hasValueStart || focusStart ? "month" : "text"}
           label="Date Started"
           variant="outlined"
         />
@@ -92,7 +92,8 @@ function Membership() {
       </Grid>
       <Grid
         sx={{
-          p: 1.2,
+          mt:5,
+          p:1.2,
           display: "flex",
           gap: 2,
           maxWidth: 650,

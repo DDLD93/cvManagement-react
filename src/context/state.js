@@ -40,7 +40,14 @@ export default function StateContextProvider({ children }) {
     setLoading(false);
     return response.json();
   }
-
+  async function submit(data) {
+    console.log(data)
+    const response = await fetch(`http://localhost:5000/create`,{
+      method:"POST",
+      body:data
+    })
+    return response.json()  
+  }
   async function postData(url = "") {
     console.log(url)
     setLoading(true);
@@ -104,8 +111,6 @@ export default function StateContextProvider({ children }) {
     // } catch (error) {
     //   console.log(error)
     // }
-
-
   }, []);
 
   const context = {
@@ -115,6 +120,7 @@ export default function StateContextProvider({ children }) {
     formPostData,
     isLogin,
     isAdmin,
+    submit,
     setUser,
     postForm,
     notification,
