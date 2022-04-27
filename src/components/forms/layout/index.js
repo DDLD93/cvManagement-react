@@ -12,6 +12,7 @@ import Membership from "../section/Membership";
 import Skills from "../section/Skills";
 import LoadingButton from "@mui/lab/LoadingButton";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import Info from "../section/AdditionalInfo";
 import { StateContext } from "../../../context/state";
 import Completed from "../section/Completed";

@@ -5,7 +5,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Grid, Icon, TextField, Typography } from "@mui/material";
+import { Grid, Icon, TextField } from "@mui/material";
+import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import { StateContext } from "../../context/state";
 import { LoadingButton } from "@mui/lab";
 import MDButton from "components/MDButton";
@@ -61,6 +62,7 @@ export function SuspendDialog(prop) {
             onClick={action}
             autoFocus
             loading={loading}
+            endIcon={<ArrowRightOutlinedIcon />}
             loadingPosition="end"
             variant="text"
           >
@@ -281,25 +283,20 @@ export function ScrollDialog(prop) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <LoadingButton
+          <Button
             sx={{ color: "red" }}
-            autoFocus
-            loading={loading}
-            loadingPosition="end"
             variant="text"
           >
             Reject
-          </LoadingButton>
+          </Button>
 
-          <LoadingButton
+          <Button
             onClick={reviewForm}
             autoFocus
-            loading={loading}
-            loadingPosition="end"
             variant="text"
           >
             Approve
-          </LoadingButton>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

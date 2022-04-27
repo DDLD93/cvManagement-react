@@ -44,7 +44,7 @@ export default function BasicModal() {
   const [role, setrole] = useState("staff")
   const [title, settitle] = useState("none");
   const [manager, setmanager] = useState(null);
-  const [managerList, setmanagerList] = useState(null)
+  const [managerList, setmanagerList] = useState([])
   const {notification,loadingState} = useContext(StateContext);
 
   async function postData(data) {

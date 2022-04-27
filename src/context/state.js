@@ -94,23 +94,6 @@ export default function StateContextProvider({ children }) {
 
     let localuser = JSON.parse(localStorage.getItem("user")) || null
     setuser(localuser)
-    // let user = null
-    // console.log(localStorage.getItem("user"))
-    // try {
-    //  // user =JSON.parse(user)
-    //   fetch(`http://localhost:5000/getuser/${user.email}`).
-    //     then(res => res.json()).
-    //     then(data => {
-    //       if (data.payload) {
-    //        localStorage.setItem("user", data.payload)
-    //         setuser(data.payload)
-    //       }
-          
-    //      })
-      
-    // } catch (error) {
-    //   console.log(error)
-    // }
   }, []);
 
   const context = {
